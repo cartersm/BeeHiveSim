@@ -1,16 +1,30 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-public class BeeHiveGrid
+// TODO: think about how we want to structure this. It has to be customized beyond an array/list.
+// Currently, I have a list of (3D) layers, each of which has an indexed map of maps of cells.
+namespace Assets.Editor
 {
-    private List<Layer> layers;
+    public class BeeHiveGrid
+    {
+        public List<Layer> Layers { get; private set; }
 
-    private class Layer
-    {
-        private List<Cell> cells;
-    }
-    private class Cell
-    {
-        private bool hasBrick;
+        private BeeHiveGrid()
+        {
+            this.Layers = new List<Layer>();
+            // TODO: initialize each layer (20 of them?)
+        }
+
+        public class Layer
+        {
+            private Dictionary<int, Dictionary<int, Cell>> _cells;
+
+            public Layer()
+            {
+                this._cells = new Dictionary<int, Dictionary<int, Cell>>();
+                // TODO: initialize a grid of empty cells by filling the maps with the expected numbers of cells.
+                // This structure is based on Sean's ant swarm graph-mapping.
+                // Alternatively, use an internal Point3D on each cell to store its location
+            }
+        }
     }
 }
