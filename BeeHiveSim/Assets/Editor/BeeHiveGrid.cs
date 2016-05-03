@@ -15,6 +15,7 @@ namespace Assets.Editor
 
         public Cell[,] GetAdjacentCells(Point3D location)
         {
+            // TODO
             var cells = new Cell[3, 6];
             throw new System.NotImplementedException();
         }

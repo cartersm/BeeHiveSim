@@ -3,7 +3,7 @@ namespace Assets.Editor
     public class Cell
     {
         public bool IsOccupied { get; set; }
-        public int BrickType { get; private set; }
+        public int BrickType { get; set; }
         public Point3D Location;
 
         public Cell(Point3D location)
