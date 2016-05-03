@@ -3,9 +3,9 @@ namespace Assets.Editor
 {
     public class Point3D
     {
-        public double x { get; set; }
-        public double y { get; set; }
-        public double z { get; set; }
+        public int x { get; set; }
+        public int y { get; set; }
+        public int z { get; set; }
 
         public Point3D(int x = 0, int y = 0, int z = 0)
         {

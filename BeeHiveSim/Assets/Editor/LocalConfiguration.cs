@@ -4,7 +4,7 @@ namespace Assets.Editor
 {
     public class LocalConfiguration
     {
-        public Dictionary<int, Dictionary<int, Cell>> Config { get; set; }
+        public Cell[] Config { get; set; }
         private Point3D _location;
 
         public LocalConfiguration(BeeHiveGrid grid, Point3D location)
@@ -16,7 +16,7 @@ namespace Assets.Editor
         private void ConstructConfig(BeeHiveGrid grid, Point3D location)
         {
             // TODO: construct local config from Grid and Location
-            this.Config = new Dictionary<int, Dictionary<int, Cell>>();
+            this.Config = new Cell[6];
             throw new System.NotImplementedException();
         }
 
