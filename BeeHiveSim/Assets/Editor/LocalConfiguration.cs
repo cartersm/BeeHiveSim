@@ -4,20 +4,11 @@ namespace Assets.Editor
 {
     public class LocalConfiguration
     {
-        public Cell[] Config { get; set; }
-        private Point3D _location;
+        public Cell[,] Config { get; set; }
 
-        public LocalConfiguration(BeeHiveGrid grid, Point3D location)
+        public LocalConfiguration(Cell[,] config)
         {
-            ConstructConfig(grid, location);
-            this._location = location;
-        }
-
-        private void ConstructConfig(BeeHiveGrid grid, Point3D location)
-        {
-            // TODO: construct local config from Grid and Location
-            this.Config = new Cell[6];
-            throw new System.NotImplementedException();
+            this.Config = config;
         }
 
         // override object.Equals
@@ -28,15 +19,14 @@ namespace Assets.Editor
                 return false;
             }
 
-            // TODO: write your implementation of Equals() here
-            throw new System.NotImplementedException();
-            return base.Equals(obj);
+            var other = (LocalConfiguration) obj;
+            return this.Config.Equals(other.Config);
         }
 
         // override object.GetHashCode
         public override int GetHashCode()
         {
-            return base.GetHashCode();
+            return this.Config.GetHashCode();
         }
     }
 }

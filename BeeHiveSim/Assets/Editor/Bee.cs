@@ -7,12 +7,13 @@ namespace Assets.Editor
         public int Number { get; set; }
         public Point3D Location { get; set; }
         /* This is the genetic portion */
-        public List<LocalConfiguration> LookupTable { get; private set; }
+        public Dictionary<LocalConfiguration, double> LookupTable { get; private set; }
 
-        public Bee(int number, Point3D location)
+        public Bee(int number, Point3D location, Dictionary<LocalConfiguration, double> lookupTable)
         {
             this.Number = number;
             this.Location = location;
+            this.LookupTable = lookupTable;
         }
 
         /**
