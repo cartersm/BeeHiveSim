@@ -2,15 +2,22 @@
 using System.Collections;
 using Assets.Editor;
 
-public class UpdateCells : MonoBehaviour {
+public class UpdateCells : MonoBehaviour
+{
+
+
+    public Transform InstantiateMe;
 
 	// Use this for initialization
 	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
+        GameObject hexagon = Instantiate(Resources.Load("Hexagon")) as GameObject;
+        for (int i = 0; i < 10; i++)
+            Instantiate(hexagon, new Vector3(i * 2.0f, 0, 0), Quaternion.identity);
+
+    }
+
+    // Update is called once per frame
+    void Update () {
 	
 	}
 
