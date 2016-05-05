@@ -23,24 +23,18 @@ namespace Assets.Editor
 
         public void Start()
         {
-            // TODO: place one block at top of grid
+            // place one brick at a predefined site
+            this.Grid.Cells[10, 10, 10].BrickType = 1;
+            this.Grid.Cells[10, 10, 10].IsOccupied = true;
 
             for (var k = 1; k <= this._numBees; k++)
             {
                 // TODO: construct lookup table here
                 var lookupTable = new Dictionary<LocalConfiguration, double>();
 
-                int x, y, z;
-                do
-                {
-                    x = _random.Next(21);
-                    y = _random.Next(21);
-                    z = _random.Next(21);
-
-                } while (this.Grid.Cells[x, y, z].IsOccupied);
-                this.Grid.Cells[x, y, z].IsOccupied = true;
-                this._bees.Add(new Bee(k, new Point3D(x, y, z), lookupTable));
-
+                var p = GetPoint();
+                this.Grid.Cells[p.x, p.y, p.z].IsOccupied = true;
+                this._bees.Add(new Bee(k, new Point3D(p.x, p.y, p.z), lookupTable));
             }
 
             // Main loop
@@ -50,6 +44,18 @@ namespace Assets.Editor
             }
         }
 
+        private Point3D GetPoint()
+        {
+            int x, y, z;
+            do
+            {
+                x = _random.Next(21);
+                y = _random.Next(21);
+                z = _random.Next(21);
+            } while (this.Grid.Cells[x, y, z].IsOccupied);
+            return new Point3D(x ,y, z);
+        }
+
         public void Update()
         {
             for (var k = 1; k <= this._numBees; k++)
@@ -57,14 +63,16 @@ namespace Assets.Editor
                 // TODO: sense local configuration (look at surrounding blocks)
                 var cells = this.Grid.GetAdjacentCells(this._bees[k].Location);
                 var config = new LocalConfiguration(cells);
-                var isInLookupTable = this._bees[k].SenseEnvironment(config);
-                if (isInLookupTable)
+                var brickToPlace = this._bees[k].SenseEnvironment(config);
+                if (brickToPlace != 0)
                 {
                     // TODO: deposit brick specified by lookup table
                     // TODO: draw a new brick
                 }
-                // TODO: move to random, unoccupied, adjacent site (currently (0, 0, 0))
-                this._bees[k].Location = new Point3D();
+
+                var p = GetPoint();
+                this.Grid.Cells[p.x, p.y, p.z].IsOccupied = true;
+                this._bees[k].Location = p;
             }
         }
 
