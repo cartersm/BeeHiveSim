@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 
 // Implements the BeeHive Construction Algorithm
@@ -60,19 +59,20 @@ namespace Assets.Editor
         {
             for (var k = 1; k <= this._numBees; k++)
             {
-                // TODO: sense local configuration (look at surrounding blocks)
-                var cells = this.Grid.GetAdjacentCells(this._bees[k].Location);
+                var bee = this._bees[k];
+                // Sense local configuration
+                var cells = this.Grid.GetAdjacentCells(bee.Location);
                 var config = new LocalConfiguration(cells);
-                var brickToPlace = this._bees[k].SenseEnvironment(config);
+                var brickToPlace = bee.SenseEnvironment(config);
                 if (brickToPlace != 0)
                 {
-                    // TODO: deposit brick specified by lookup table
-                    // TODO: draw a new brick
+                    // Deposit brick specified by lookup table
+                    this.Grid.DepositBrick(bee.Location, brickToPlace);
                 }
 
                 var p = GetPoint();
                 this.Grid.Cells[p.x, p.y, p.z].IsOccupied = true;
-                this._bees[k].Location = p;
+                bee.Location = p;
             }
         }
 

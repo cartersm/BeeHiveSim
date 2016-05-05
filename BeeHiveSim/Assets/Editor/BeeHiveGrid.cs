@@ -16,7 +16,7 @@ namespace Assets.Editor
         public Cell[,] GetAdjacentCells(Point3D location)
         {
             // TODO
-            var cells = new Cell[3, 6];
+            var cells = new Cell[3, 7];
             throw new System.NotImplementedException();
         }
 
@@ -30,6 +30,11 @@ namespace Assets.Editor
             {
                 return null;
             }
+        }
+
+        public void DepositBrick(Point3D location, int brickToPlace)
+        {
+            this.Cells[location.x, location.y, location.z].BrickType = brickToPlace;
         }
     }
 
