@@ -2,11 +2,11 @@
 using System.Collections;
 
 public class UnityPoint3D : MonoBehaviour {
-    public double x { get; set; }
-    public double y { get; set; }
-    public double z { get; set; }
+    public float x { get; set; }
+    public float y { get; set; }
+    public float z { get; set; }
 
-    public UnityPoint3D(double x = 0, double y = 0, double z = 0)
+    public UnityPoint3D(float x = 0, float y = 0, float z = 0)
     {
         this.x = x;
         this.y = y;
