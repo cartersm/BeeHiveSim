@@ -16,7 +16,7 @@ namespace Assets.Graphic
             //this.hexagon = Instantiate(Resources.Load("Hexagon")) as GameObject;
             //oneThousandCells();
             var nBees = 10;
-            var nSteps = 100;
+            var nSteps = 1000;
             this._algorithm = new Algorithm.Algorithm(nBees, nSteps, "Assets/Editor/TextFile1.txt");
             this._algorithm.Start();
         }
@@ -79,9 +79,9 @@ namespace Assets.Graphic
         UnityPoint3D getUnityPoint3D(Point3D location)
         {
             UnityPoint3D unityPoint3D = new UnityPoint3D();
-            unityPoint3D.x = Mathf.Sqrt(3)/2*location.x;
-            unityPoint3D.y = 0.9f*location.z;
-            unityPoint3D.z = location.y+0.5f*location.x;
+            unityPoint3D.x = Mathf.Sqrt(3)/2*location.X;
+            unityPoint3D.y = 0.9f*location.Z;
+            unityPoint3D.z = location.Y+0.5f*location.X;
             return unityPoint3D;
         }
 

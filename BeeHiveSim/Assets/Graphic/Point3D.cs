@@ -3,15 +3,15 @@ namespace Assets.Graphic
 {
     public class Point3D
     {
-        public int x { get; set; }
-        public int y { get; set; }
-        public int z { get; set; }
+        public int X { get; set; }
+        public int Y { get; set; }
+        public int Z { get; set; }
 
         public Point3D(int x = 0, int y = 0, int z = 0)
         {
-            this.x = x;
-            this.y = y;
-            this.z = z;
+            this.X = x;
+            this.Y = y;
+            this.Z = z;
         }
     }
 }

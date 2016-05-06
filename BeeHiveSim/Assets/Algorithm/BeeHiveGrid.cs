@@ -36,7 +36,7 @@ namespace Assets.Algorithm
             var cells = new Cell[3, 7];
             for (var i = -1; i < 2; i++)
             {
-                int x = location.x, y = location.y, z = location.z + i;
+                int x = location.X, y = location.Y, z = location.Z + i;
 
                 var idx = i + 1;
                 cells[idx, 0] = _tryGetCell(x - 1, y + 1, z);
@@ -69,7 +69,27 @@ namespace Assets.Algorithm
 
         public void DepositBrick(Point3D location, int brickToPlace)
         {
-            Cells[location.x, location.y, location.z].BrickType = brickToPlace;
+            Cells[location.X, location.Y, location.Z].BrickType = brickToPlace;
+        }
+
+        public void OccupyCell(Point3D location)
+        {
+            this.Cells[location.X, location.Y, location.Z].IsOccupied = true;
+        }
+
+        public void UnOccupyCell(Point3D location)
+        {
+            this.Cells[location.X, location.Y, location.Z].IsOccupied = false;
+        }
+
+        public bool isCellOccupied(Point3D location)
+        {
+            return isCellOccupied(location.X, location.Y, location.Z);
+        }
+
+        public bool isCellOccupied(int x, int y, int z)
+        {
+            return this.Cells[x, y, z].IsOccupied;
         }
     }
 }

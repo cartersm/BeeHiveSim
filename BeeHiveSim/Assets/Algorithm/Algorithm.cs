@@ -31,68 +31,50 @@ namespace Assets.Algorithm
             // place one brick at a predefined site
             this.Grid.Cells[10, 10, 10].BrickType = 1;
             this.Grid.Cells[10, 10, 10].IsOccupied = true;
-                      var lookupTable = ConfigParser.Parse(this._filename);
-            //var lookupTable = new Dictionary<LocalConfiguration, BrickPlacement>();
-            //Cell oneCell = new Cell(0, 0, 0);
-            //oneCell.BrickType = 1;
-            //lookupTable.Add(new LocalConfiguration(new Cell[3][]
-            //{
-            //    new Cell[7]
-            //    {
-            //        new Cell(0,0,0),
-            //        new Cell(0,0,0),
-            //        new Cell(0,0,0),
-            //        new Cell(0,0,0),
-            //        new Cell(0,0,0),
-            //        new Cell(0,0,0),
-            //        oneCell
-            //    },
-            //    new Cell[7]
-            //    {
-            //        new Cell(0,0,0),
-            //        new Cell(0,0,0),
-            //        new Cell(0,0,0),
-            //        new Cell(0,0,0),
-            //        new Cell(0,0,0),
-            //        new Cell(0,0,0),
-            //        null
-            //    },
-            //    new Cell[7]
-            //    {
-            //        new Cell(0,0,0),
-            //        new Cell(0,0,0),
-            //        new Cell(0,0,0),
-            //        new Cell(0,0,0),
-            //        new Cell(0,0,0),
-            //        new Cell(0,0,0),
-            //        new Cell(0,0,0)
-            //    }
-            //}), new BrickPlacement(1, 1.0));
+            var lookupTable = ConfigParser.Parse(this._filename);
 
             for (var k = 0; k < this._numBees; k++)
             {
                 var p = GetUnoccupiedPoint();
-                this.Grid.Cells[p.x, p.y, p.z].IsOccupied = true;
-                this._bees.Add(new Bee(k, new Point3D(p.x, p.y, p.z), lookupTable));
+                this.Grid.Cells[p.X, p.Y, p.Z].IsOccupied = true;
+                this._bees.Add(new Bee(k, new Point3D(p.X, p.Y, p.Z), lookupTable));
             }
-
-            // Main loop
-            //for (var t = 1; t <= this._tMax; t++)
-            //{
-            //    Update();
-            //}
         }
 
-        private Point3D GetUnoccupiedPoint()
+        private Point3D GetUnoccupiedPoint(Point3D p = null)
         {
-            int x, y, z;
+            int x, y, z, nAttempts = 0;
+            bool isPointIllegal = false, breakCond = false;
+            int maxAttempts = 100;
             do
             {
-                x = _random.Next(20);
-                y = _random.Next(20);
-                z = _random.Next(20);
-            } while (this.Grid.Cells[x, y, z].IsOccupied);
-            return new Point3D(x, y, z);
+                if (p == null)
+                {
+                    // get random point
+                    x = _random.Next(20);
+                    y = _random.Next(20);
+                    z = _random.Next(20);
+                }
+                else
+                {
+                    // get adjacent point
+                    x = _random.Next(Mathf.Max(p.X - 1, 0), Mathf.Min(p.X + 2, 20));
+                    y = _random.Next(Mathf.Max(p.Y - 1, 0), Mathf.Min(p.Y + 2, 20));
+                    z = _random.Next(Mathf.Max(p.X - 1, 0), Mathf.Min(p.X + 2, 20));
+                    // exclude cartesian results that aren't adjacent in hexagons
+                    // exclude results that are equal to the given point
+                    isPointIllegal = (x == p.X + 1 && y == p.Y + 1) 
+                        || (x == p.X - 1 && y == p.Y - 1) 
+                        || (new Point3D(x, y, z).Equals(p));
+                }
+                nAttempts += 1;
+                // unoccupied and legal OR less than max attempts if not
+                breakCond = (!this.Grid.Cells[x, y, z].IsOccupied && !isPointIllegal) || (nAttempts < maxAttempts);
+            } while (!breakCond);
+
+            return nAttempts == maxAttempts ? 
+                p :
+                new Point3D(x, y, z);
         }
 
         public void Update()
@@ -108,10 +90,15 @@ namespace Assets.Algorithm
                 {
                     // Deposit brick specified by lookup table
                     this.Grid.DepositBrick(bee.Location, brickToPlace.BrickType);
+                    //Debug.logger.Log("Depositing Cell for config:");
+                }
+                else
+                {
+                    this.Grid.UnOccupyCell(bee.Location);
                 }
 
-                var p = GetUnoccupiedPoint();
-                this.Grid.Cells[p.x, p.y, p.z].IsOccupied = true;
+                var p = GetUnoccupiedPoint(bee.Location);
+                this.Grid.OccupyCell(p);
                 bee.Location = p;
             }
         }
