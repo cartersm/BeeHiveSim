@@ -1,63 +1,46 @@
-﻿[
+﻿{"array":[
 		{ 
 		"combo":{
 			"LocalConfiguration":{
 							"Config":[
 											[
-												[
-													"Cell":{"BrickType": 0, "IsOccupied":false},
-													"Cell":{"BrickType": 0, "IsOccupied":false},
-													"Cell":{"BrickType": 0, "IsOccupied":false}
-												],
-												[
-													"Cell":{"BrickType": 0, "IsOccupied":false}
-													"Cell":{"BrickType": 0, "IsOccupied":false},
-													"Cell":{"BrickType": 0, "IsOccupied":false},
-												],
-												[
-													"Cell":{"BrickType": 0, "IsOccupied":false},
-													"Cell":{"BrickType": 0, "IsOccupied":false},
-													"Cell":{"BrickType": 0, "IsOccupied":false}
-												]
-									]
+										
+													"Cell":{"BrickType": 0},
+													"Cell":{"BrickType": 0},
+													"Cell":{"BrickType": 0},
+													"Cell":{"BrickType": 0},
+													"Cell":{"BrickType": 0},
+													"Cell":{"BrickType": 0},
+													"Cell":{"BrickType": 0}
+											
 											],
 											[
-												[
-													"Cell":{"BrickType": 0, "IsOccupied":false},
-													"Cell":{"BrickType": 0, "IsOccupied":false},
-													"Cell":{"BrickType": 0, "IsOccupied":false}
-												],
-												[
-													"Cell":{"BrickType": 0, "IsOccupied":false},
-													"Cell":{"BrickType": 0, "IsOccupied":false},
-													"Cell":{"BrickType": 0, "IsOccupied":false}
-												],
-												[
-													"Cell":{"BrickType": 0, "IsOccupied":false},
-													"Cell":{"BrickType": 0, "IsOccupied":false},
-													"Cell":{"BrickType": 0, "IsOccupied":false}
-												]
+											
+													"Cell":{"BrickType": 0},
+													"Cell":{"BrickType": 0},
+													"Cell":{"BrickType": 0},
+													"Cell":{"BrickType": 0},
+													"Cell":{"BrickType": 0},
+													"Cell":{"BrickType": 0}
+												
 											],
 											[
-												[
-													"Cell":{"BrickType": 0, "IsOccupied":false},
-													"Cell":{"BrickType": 0, "IsOccupied":false},
-													"Cell":{"BrickType": 0, "IsOccupied":false}
-												],
-												[
-													"Cell":{"BrickType": 0, "IsOccupied":false},
-													"Cell":{"BrickType": 0, "IsOccupied":false},
-													"Cell":{"BrickType": 0, "IsOccupied":false}
-												],
-												[
-													"Cell":{"BrickType": 0, "IsOccupied":false},
-													"Cell":{"BrickType": 0, "IsOccupied":false},
-													"Cell":{"BrickType": 0, "IsOccupied":false}
-												]
-											],
+												
+													"Cell":{"BrickType": 0},
+													"Cell":{"BrickType": 0},
+													"Cell":{"BrickType": 0},
+													"Cell":{"BrickType": 0},
+													"Cell":{"BrickType": 0},
+													"Cell":{"BrickType": 0},
+													"Cell":{"BrickType": 0}
+												
+											]
+
+												
 									]},
-				"prob": 1.0
+				"prob": 1.0,
+				"bricktype": 1
 			}
 
 	}
-]
+]}

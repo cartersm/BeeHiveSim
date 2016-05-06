@@ -1,20 +1,46 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Assets.Editor
 {
-    class ConfigParser
+    public class ConfigParser
     {
-        combo configurationsCombo [];
+        
+
+        Dictionary<LocalConfiguration, BrickPlacement> runParse(String filename)
+        {
+            Dictionary<LocalConfiguration, BrickPlacement> vals = new Dictionary<LocalConfiguration, BrickPlacement>();
+              string text = filename;
+            using (var streamReader = new StreamReader(text, Encoding.UTF8))
+            {
+                text = streamReader.ReadToEnd();
+            }
+            JObject obj = JObject.Parse(text);
+
+            JArray a = (JArray) obj["array"];
+            IList<Combo> combos = obj.ToObject<IList<Combo>>();
+            foreach (Combo entry in combos)
+            {
+                vals.Add(entry.config, new BrickPlacement(entry.bricktype,entry.prob) );
+            }
+        }
+        
+        public class Combo
+        {
+            public LocalConfiguration config { get; set; }
+            public double prob { get; set; }
+            public int bricktype { get; set; }
+
+
+        }
+
     }
 
-    class combo
-    {
-        private LocalConfiguration config { get; set; }
-        private double prob { get; set; }
-
-
-    }
+    
 }
