@@ -52,7 +52,7 @@ namespace Assets.Editor
                 y = _random.Next(21);
                 z = _random.Next(21);
             } while (this.Grid.Cells[x, y, z].IsOccupied);
-            return new Point3D(x ,y, z);
+            return new Point3D(x, y, z);
         }
 
         public void Update()

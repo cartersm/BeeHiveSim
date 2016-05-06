@@ -4,9 +4,9 @@ namespace Assets.Editor
 {
     public class LocalConfiguration
     {
-        public Cell[, ,] Config { get; set; }
+        public Cell[,] Config { get; set; }
 
-        public LocalConfiguration(Cell[, ,] config)
+        public LocalConfiguration(Cell[,] config)
         {
             this.Config = config;
         }

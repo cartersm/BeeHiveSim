@@ -27,7 +27,7 @@ namespace Assets.Editor
         }
 
         // x, y, z
-        public Cell[,,] Cells { get; }
+        public Cell[,,] Cells { get; private set; }
 
         public Cell[,] GetAdjacentCells(Point3D location)
         {
