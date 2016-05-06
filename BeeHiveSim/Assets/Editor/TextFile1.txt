@@ -1,46 +1,37 @@
 ﻿{"array":[
-		{ 
+	{ 
 		"combo":{
 			"LocalConfiguration":{
-							"Config":[
-											[
-										
-													"Cell":{"BrickType": 0},
-													"Cell":{"BrickType": 0},
-													"Cell":{"BrickType": 0},
-													"Cell":{"BrickType": 0},
-													"Cell":{"BrickType": 0},
-													"Cell":{"BrickType": 0},
-													"Cell":{"BrickType": 0}
-											
-											],
-											[
-											
-													"Cell":{"BrickType": 0},
-													"Cell":{"BrickType": 0},
-													"Cell":{"BrickType": 0},
-													"Cell":{"BrickType": 0},
-													"Cell":{"BrickType": 0},
-													"Cell":{"BrickType": 0}
-												
-											],
-											[
-												
-													"Cell":{"BrickType": 0},
-													"Cell":{"BrickType": 0},
-													"Cell":{"BrickType": 0},
-													"Cell":{"BrickType": 0},
-													"Cell":{"BrickType": 0},
-													"Cell":{"BrickType": 0},
-													"Cell":{"BrickType": 0}
-												
-											]
-
-												
-									]},
-				"prob": 1.0,
-				"bricktype": 1
-			}
-
+				"Config":[
+					[
+						{"BrickType": 0},
+						{"BrickType": 0},
+						{"BrickType": 0},
+						{"BrickType": 1},
+						{"BrickType": 0},
+						{"BrickType": 0},
+						{"BrickType": 0}
+					],
+					[
+						{"BrickType": 0},
+						{"BrickType": 0},
+						{"BrickType": 0},
+						{"BrickType": 0},
+						{"BrickType": 0},
+						{"BrickType": 0}
+					],
+					[
+						{"BrickType": 0},
+						{"BrickType": 0},
+						{"BrickType": 0},
+						{"BrickType": 0},
+						{"BrickType": 0},
+						{"BrickType": 0},
+						{"BrickType": 0}
+					]
+				]},
+				"Chance": 1.0,
+				"BrickType": 1
+	    }
 	}
 ]}
