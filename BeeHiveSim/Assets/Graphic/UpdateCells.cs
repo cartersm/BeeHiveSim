@@ -1,20 +1,27 @@
 ﻿using UnityEngine;
-//using Assets.Editor;
 
 namespace Assets.Graphic
 {
     public class UpdateCells : MonoBehaviour
     {
+        private int _nStepsTaken = 0;
+        private Algorithm.Algorithm _algorithm;
 
         void Start () {
             //this.hexagon = Instantiate(Resources.Load("Hexagon")) as GameObject;
             oneThousandCells();
-            //Algorithm 
+            var nBees = 10;
+            var nSteps = 100;
+            this._algorithm = new Algorithm.Algorithm(nBees, nSteps, "../Editor/TextFile1.txt");
+            this._algorithm.Start();
         }
 
         // Update is called once per frame
         void Update () {
-	
+            if (this._nStepsTaken < this._algorithm.TMax)
+            {
+                this._algorithm.Update();
+            }
         }
 
         UnityPoint3D getUnityPoint3D(Point3D location)

@@ -1,6 +1,6 @@
 using Assets.Graphic;
 
-namespace Assets.Editor
+namespace Assets.Algorithm
 {
     public class Cell
     {
@@ -32,6 +32,12 @@ namespace Assets.Editor
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
             return Equals((Cell) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            // ReSharper disable once BaseObjectGetHashCodeCallInGetHashCode
+            return base.GetHashCode();
         }
     }
 }

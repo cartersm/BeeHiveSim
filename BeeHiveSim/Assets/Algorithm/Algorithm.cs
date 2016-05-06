@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
+using Assets.Editor;
 using Assets.Graphic;
 using UnityEngine;
 using Random = System.Random;
 
 // Implements the BeeHive Construction Algorithm
-namespace Assets.Editor
+namespace Assets.Algorithm
 {
     public class Algorithm : MonoBehaviour
     {
@@ -78,10 +79,10 @@ namespace Assets.Editor
             }
         }
 
-        public void Main(string[] args)
-        {
-            var a = new Algorithm(10, 100, "TextFile1.txt");
-            a.Start();
-        }
+        //public void Main(string[] args)
+        //{
+        //    var a = new Algorithm(10, 100, "TextFile1.txt");
+        //    a.Start();
+        //}
     }
 }

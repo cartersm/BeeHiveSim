@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Assets.Editor
+﻿namespace Assets.Algorithm
 {
     public class LocalConfiguration
     {

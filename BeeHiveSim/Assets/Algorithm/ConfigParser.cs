@@ -2,9 +2,10 @@
 using System.IO;
 using System.Linq;
 using System.Text;
+using Assets.Editor;
 using Newtonsoft.Json.Linq;
 
-namespace Assets.Editor
+namespace Assets.Algorithm
 {
     public static class ConfigParser
     {

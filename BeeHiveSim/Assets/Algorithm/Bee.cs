@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
+using Assets.Editor;
 using Assets.Graphic;
 
-namespace Assets.Editor
+namespace Assets.Algorithm
 {
     public class Bee
     {

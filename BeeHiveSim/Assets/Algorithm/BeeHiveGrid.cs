@@ -1,7 +1,8 @@
 ﻿using System;
+using Assets.Editor;
 using Assets.Graphic;
 
-namespace Assets.Editor
+namespace Assets.Algorithm
 {
     public class BeeHiveGrid
     {
