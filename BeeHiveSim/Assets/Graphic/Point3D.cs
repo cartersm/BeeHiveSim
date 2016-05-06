@@ -1,4 +1,6 @@
 ﻿
+using System;
+
 namespace Assets.Graphic
 {
     public class Point3D
@@ -12,6 +14,11 @@ namespace Assets.Graphic
             this.X = x;
             this.Y = y;
             this.Z = z;
+        }
+
+        public override string ToString()
+        {
+            return string.Format("Point3D: ({0}, {1}, {2})", X, Y, Z);
         }
     }
 }

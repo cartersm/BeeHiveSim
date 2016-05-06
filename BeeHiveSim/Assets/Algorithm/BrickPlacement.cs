@@ -10,5 +10,10 @@
             this.BrickType = brickType;
             this.Chance = chance;
         }
+
+        public override string ToString()
+        {
+            return "BrickPlacement: Type: " + BrickType + ", Chance: " + Chance;
+        }
     }
 }

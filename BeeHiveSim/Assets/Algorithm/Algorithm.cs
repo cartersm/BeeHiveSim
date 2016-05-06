@@ -41,6 +41,35 @@ namespace Assets.Algorithm
             }
         }
 
+        public void Update()
+        {
+            for (var k = 0; k < this._numBees; k++)
+            {
+                var bee = this._bees[k];
+                // Sense local configuration
+                var cells = this.Grid.GetAdjacentCells(bee.Location);
+                var config = new LocalConfiguration(cells);
+                var brickToPlace = bee.SenseEnvironment(config);
+                
+                if (brickToPlace != null)
+                {
+                    Debug.Log("Discovered Config: ");
+                    Debug.Log(brickToPlace);
+                    // Deposit brick specified by lookup table
+                    this.Grid.DepositBrick(bee.Location, brickToPlace.BrickType);
+                }
+                else
+                {
+                    this.Grid.UnOccupyCell(bee.Location);
+                }
+
+                var p = GetUnoccupiedPoint(bee.Location);
+                this.Grid.OccupyCell(p);
+                bee.Location = p;
+                Debug.Log(bee.Location);
+            }
+        }
+
         private Point3D GetUnoccupiedPoint(Point3D p = null)
         {
             int x, y, z, nAttempts = 0;
@@ -63,44 +92,18 @@ namespace Assets.Algorithm
                     z = _random.Next(Mathf.Max(p.X - 1, 0), Mathf.Min(p.X + 2, 20));
                     // exclude cartesian results that aren't adjacent in hexagons
                     // exclude results that are equal to the given point
-                    isPointIllegal = (x == p.X + 1 && y == p.Y + 1) 
-                        || (x == p.X - 1 && y == p.Y - 1) 
+                    isPointIllegal = (x == p.X + 1 && y == p.Y + 1)
+                        || (x == p.X - 1 && y == p.Y - 1)
                         || (new Point3D(x, y, z).Equals(p));
                 }
                 nAttempts += 1;
-                // unoccupied and legal OR less than max attempts if not
-                breakCond = (!this.Grid.Cells[x, y, z].IsOccupied && !isPointIllegal) || (nAttempts < maxAttempts);
+                // unoccupied and legal OR greater than max attempts if not
+                breakCond = (!this.Grid.Cells[x, y, z].IsOccupied && !isPointIllegal) || (nAttempts >= maxAttempts);
             } while (!breakCond);
 
-            return nAttempts == maxAttempts ? 
+            return nAttempts == maxAttempts ?
                 p :
                 new Point3D(x, y, z);
-        }
-
-        public void Update()
-        {
-            for (var k = 0; k < this._numBees; k++)
-            {
-                var bee = this._bees[k];
-                // Sense local configuration
-                var cells = this.Grid.GetAdjacentCells(bee.Location);
-                var config = new LocalConfiguration(cells);
-                var brickToPlace = bee.SenseEnvironment(config);
-                if (brickToPlace != null)
-                {
-                    // Deposit brick specified by lookup table
-                    this.Grid.DepositBrick(bee.Location, brickToPlace.BrickType);
-                    //Debug.logger.Log("Depositing Cell for config:");
-                }
-                else
-                {
-                    this.Grid.UnOccupyCell(bee.Location);
-                }
-
-                var p = GetUnoccupiedPoint(bee.Location);
-                this.Grid.OccupyCell(p);
-                bee.Location = p;
-            }
         }
 
         //public void Main(string[] args)

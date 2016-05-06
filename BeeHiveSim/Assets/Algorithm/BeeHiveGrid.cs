@@ -70,6 +70,7 @@ namespace Assets.Algorithm
         public void DepositBrick(Point3D location, int brickToPlace)
         {
             Cells[location.X, location.Y, location.Z].BrickType = brickToPlace;
+            this.OccupyCell(location);
         }
 
         public void OccupyCell(Point3D location)
@@ -82,12 +83,12 @@ namespace Assets.Algorithm
             this.Cells[location.X, location.Y, location.Z].IsOccupied = false;
         }
 
-        public bool isCellOccupied(Point3D location)
+        public bool IsCellOccupied(Point3D location)
         {
-            return isCellOccupied(location.X, location.Y, location.Z);
+            return IsCellOccupied(location.X, location.Y, location.Z);
         }
 
-        public bool isCellOccupied(int x, int y, int z)
+        public bool IsCellOccupied(int x, int y, int z)
         {
             return this.Cells[x, y, z].IsOccupied;
         }
