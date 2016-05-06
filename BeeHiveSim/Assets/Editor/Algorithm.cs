@@ -1,11 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Assets.Graphic;
+using UnityEngine;
+using Random = System.Random;
 
 // Implements the BeeHive Construction Algorithm
 namespace Assets.Editor
 {
-    public class Algorithm
+    public class Algorithm : MonoBehaviour
     {
         private int _numBees;
         private int _tMax;
@@ -38,10 +39,10 @@ namespace Assets.Editor
             }
 
             // Main loop
-            for (var t = 1; t <= this._tMax; t++)
-            {
-                Update();
-            }
+            //for (var t = 1; t <= this._tMax; t++)
+            //{
+            //    Update();
+            //}
         }
 
         private Point3D GetUnoccupiedPoint()
@@ -79,7 +80,7 @@ namespace Assets.Editor
 
         public void Main(string[] args)
         {
-            var a = new Algorithm(10, 20000, "TextFile1.txt");
+            var a = new Algorithm(10, 100, "TextFile1.txt");
             a.Start();
         }
     }
