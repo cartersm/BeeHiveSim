@@ -22,9 +22,8 @@ namespace Assets.Editor
          */
         public BrickPlacement SenseEnvironment(LocalConfiguration config)
         {
-            // TODO: sense local config and try to find it in the lookup table.
-
-            throw new System.NotImplementedException();
+            BrickPlacement retVal;
+            return this.LookupTable.TryGetValue(config, out retVal) ? retVal : null;
         }
     }
 }
