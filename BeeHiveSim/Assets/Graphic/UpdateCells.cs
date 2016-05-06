@@ -9,7 +9,7 @@ namespace Assets.Graphic
 
         void Start () {
             //this.hexagon = Instantiate(Resources.Load("Hexagon")) as GameObject;
-            oneThousandCells();
+            //oneThousandCells();
             var nBees = 10;
             var nSteps = 100;
             this._algorithm = new Algorithm.Algorithm(nBees, nSteps, "../Editor/TextFile1.txt");

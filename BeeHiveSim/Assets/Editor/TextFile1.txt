@@ -1,9 +1,8 @@
-﻿{"array":[
+﻿{"array":[]
 	{ 
 		"combo":{
-			"LocalConfiguration":{
-				"Config":[
-					[
+				
+					"top":[
 						{"BrickType": 0},
 						{"BrickType": 0},
 						{"BrickType": 0},
@@ -12,7 +11,7 @@
 						{"BrickType": 0},
 						{"BrickType": 0}
 					],
-					[
+					"mid":[
 						{"BrickType": 0},
 						{"BrickType": 0},
 						{"BrickType": 0},
@@ -20,7 +19,7 @@
 						{"BrickType": 0},
 						{"BrickType": 0}
 					],
-					[
+					"bot":[
 						{"BrickType": 0},
 						{"BrickType": 0},
 						{"BrickType": 0},
@@ -29,7 +28,7 @@
 						{"BrickType": 0},
 						{"BrickType": 0}
 					]
-				]},
+				,
 				"Chance": 1.0,
 				"BrickType": 1
 	    }
