@@ -29,6 +29,7 @@ namespace Assets.Editor
             {
                 vals.Add(entry.config, new BrickPlacement(entry.bricktype,entry.prob) );
             }
+            return vals;
         }
         
         public class Combo
