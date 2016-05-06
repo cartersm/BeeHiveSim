@@ -12,7 +12,7 @@ namespace Assets.Graphic
             //oneThousandCells();
             var nBees = 10;
             var nSteps = 100;
-            this._algorithm = new Algorithm.Algorithm(nBees, nSteps, "../Editor/TextFile1.txt");
+            this._algorithm = new Algorithm.Algorithm(nBees, nSteps, "Assets/Editor/TextFile1.txt");
             this._algorithm.Start();
         }
 

@@ -7,7 +7,7 @@ using Random = System.Random;
 // Implements the BeeHive Construction Algorithm
 namespace Assets.Algorithm
 {
-    public class Algorithm : MonoBehaviour
+    public class Algorithm
     {
         private int _numBees;
         public int TMax;
@@ -23,6 +23,7 @@ namespace Assets.Algorithm
             this._bees = new List<Bee>();
             this._random = new Random();
             this._filename = filename;
+            this.Grid = new BeeHiveGrid();
         }
 
         public void Start()
