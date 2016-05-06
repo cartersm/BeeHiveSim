@@ -32,16 +32,33 @@ namespace Assets.Editor
 
         public Cell[,] GetAdjacentCells(Point3D location)
         {
-            // TODO
             var cells = new Cell[3, 7];
-            throw new NotImplementedException();
+            for (var i = -1; i < 2; i++)
+            {
+                int x = location.x, y = location.y, z = location.z + i;
+
+                var idx = i + 1;
+                cells[idx, 0] = _tryGetCell(x - 1, y + 1, z);
+                cells[idx, 1] = _tryGetCell(x, y + 1, z);
+                cells[idx, 2] = _tryGetCell(x + 1, y, z);
+                cells[idx, 3] = _tryGetCell(x + 1, y - 1, z);
+                cells[idx, 4] = _tryGetCell(x, y - 1, z);
+                cells[idx, 5] = _tryGetCell(x - 1, y, z);
+
+                cells[idx, 6] = 
+                    i == 0 
+                    ? null 
+                    : _tryGetCell(x, y, z);
+            }
+
+            return cells;
         }
 
-        private Cell _getCell(Point3D location)
+        private Cell _tryGetCell(int x, int y, int z)
         {
             try
             {
-                return Cells[location.x, location.y, location.z];
+                return Cells[x, y, z];
             }
             catch (IndexOutOfRangeException)
             {
