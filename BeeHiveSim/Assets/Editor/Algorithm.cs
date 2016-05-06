@@ -29,7 +29,7 @@ namespace Assets.Editor
             for (var k = 1; k <= this._numBees; k++)
             {
                 // TODO: construct lookup table here
-                var lookupTable = new Dictionary<LocalConfiguration, double>();
+                var lookupTable = new Dictionary<LocalConfiguration, BrickPlacement>();
 
                 var p = GetPoint();
                 this.Grid.Cells[p.x, p.y, p.z].IsOccupied = true;
