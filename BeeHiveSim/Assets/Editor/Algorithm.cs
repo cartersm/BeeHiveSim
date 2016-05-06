@@ -9,16 +9,16 @@ namespace Assets.Editor
     public class Algorithm : MonoBehaviour
     {
         private int _numBees;
-        private int _tMax;
+        public int TMax;
         private List<Bee> _bees;
         public BeeHiveGrid Grid { get; set; }
         private Random _random;
         private string _filename;
 
-        public Algorithm(int numBees, int tMax, string filename)
+        public Algorithm(int numBees, int max, string filename)
         {
             this._numBees = numBees;
-            this._tMax = tMax;
+            this.TMax = max;
             this._bees = new List<Bee>();
             this._random = new Random();
             this._filename = filename;
