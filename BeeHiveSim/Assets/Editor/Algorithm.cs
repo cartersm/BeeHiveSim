@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Assets.Graphic;
 
 // Implements the BeeHive Construction Algorithm
 namespace Assets.Editor

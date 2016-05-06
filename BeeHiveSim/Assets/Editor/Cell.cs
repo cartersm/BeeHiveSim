@@ -1,3 +1,5 @@
+using Assets.Graphic;
+
 namespace Assets.Editor
 {
     public class Cell

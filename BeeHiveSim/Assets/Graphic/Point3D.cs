@@ -1,5 +1,5 @@
 ﻿
-namespace Assets.Editor
+namespace Assets.Graphic
 {
     public class Point3D
     {
