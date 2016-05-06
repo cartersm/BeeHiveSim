@@ -20,7 +20,7 @@ namespace Assets.Editor
          * Senses the local configuration of cells around the bee's current location, 
          * and tries to find it in the lookup table.
          */
-        public int SenseEnvironment(LocalConfiguration config)
+        public BrickPlacement SenseEnvironment(LocalConfiguration config)
         {
             // TODO: sense local config and try to find it in the lookup table.
 

@@ -64,10 +64,10 @@ namespace Assets.Editor
                 var cells = this.Grid.GetAdjacentCells(bee.Location);
                 var config = new LocalConfiguration(cells);
                 var brickToPlace = bee.SenseEnvironment(config);
-                if (brickToPlace != 0)
+                if (brickToPlace != null)
                 {
                     // Deposit brick specified by lookup table
-                    this.Grid.DepositBrick(bee.Location, brickToPlace);
+                    this.Grid.DepositBrick(bee.Location, brickToPlace.BrickType);
                 }
 
                 var p = GetPoint();
