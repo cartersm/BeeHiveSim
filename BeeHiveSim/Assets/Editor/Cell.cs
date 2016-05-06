@@ -18,5 +18,18 @@ namespace Assets.Editor
         {
             // unused
         }
+
+        protected bool Equals(Cell other)
+        {
+            return BrickType == other.BrickType;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((Cell) obj);
+        }
     }
 }
