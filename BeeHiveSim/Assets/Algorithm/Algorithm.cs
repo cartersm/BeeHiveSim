@@ -31,9 +31,45 @@ namespace Assets.Algorithm
             // place one brick at a predefined site
             this.Grid.Cells[10, 10, 10].BrickType = 1;
             this.Grid.Cells[10, 10, 10].IsOccupied = true;
-            var lookupTable = ConfigParser.Parse(this._filename);
+            //            var lookupTable = ConfigParser.Parse(this._filename);
+            var lookupTable = new Dictionary<LocalConfiguration, BrickPlacement>();
+            Cell oneCell = new Cell(0, 0, 0);
+            oneCell.BrickType = 1;
+            lookupTable.Add(new LocalConfiguration(new Cell[3][]
+            {
+                new Cell[7]
+                {
+                    new Cell(0,0,0),
+                    new Cell(0,0,0),
+                    new Cell(0,0,0),
+                    new Cell(0,0,0),
+                    new Cell(0,0,0),
+                    new Cell(0,0,0),
+                    oneCell
+                },
+                new Cell[7]
+                {
+                    new Cell(0,0,0),
+                    new Cell(0,0,0),
+                    new Cell(0,0,0),
+                    new Cell(0,0,0),
+                    new Cell(0,0,0),
+                    new Cell(0,0,0),
+                    null
+                },
+                new Cell[7]
+                {
+                    new Cell(0,0,0),
+                    new Cell(0,0,0),
+                    new Cell(0,0,0),
+                    new Cell(0,0,0),
+                    new Cell(0,0,0),
+                    new Cell(0,0,0),
+                    new Cell(0,0,0)
+                }
+            }), new BrickPlacement(1, 1.0));
 
-            for (var k = 1; k <= this._numBees; k++)
+            for (var k = 0; k < this._numBees; k++)
             {
                 var p = GetUnoccupiedPoint();
                 this.Grid.Cells[p.x, p.y, p.z].IsOccupied = true;
@@ -52,16 +88,16 @@ namespace Assets.Algorithm
             int x, y, z;
             do
             {
-                x = _random.Next(21);
-                y = _random.Next(21);
-                z = _random.Next(21);
+                x = _random.Next(20);
+                y = _random.Next(20);
+                z = _random.Next(20);
             } while (this.Grid.Cells[x, y, z].IsOccupied);
             return new Point3D(x, y, z);
         }
 
         public void Update()
         {
-            for (var k = 1; k <= this._numBees; k++)
+            for (var k = 0; k < this._numBees; k++)
             {
                 var bee = this._bees[k];
                 // Sense local configuration
