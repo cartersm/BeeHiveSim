@@ -29,7 +29,7 @@ namespace Assets.Editor
             for (var k = 1; k <= this._numBees; k++)
             {
                 // TODO: construct lookup table here
-                var lookupTable = new Dictionary<LocalConfiguration, double>();
+                var lookupTable = new Dictionary<LocalConfiguration, BrickPlacement>();
 
                 var p = GetPoint();
                 this.Grid.Cells[p.x, p.y, p.z].IsOccupied = true;
@@ -64,10 +64,10 @@ namespace Assets.Editor
                 var cells = this.Grid.GetAdjacentCells(bee.Location);
                 var config = new LocalConfiguration(cells);
                 var brickToPlace = bee.SenseEnvironment(config);
-                if (brickToPlace != 0)
+                if (brickToPlace != null)
                 {
                     // Deposit brick specified by lookup table
-                    this.Grid.DepositBrick(bee.Location, brickToPlace);
+                    this.Grid.DepositBrick(bee.Location, brickToPlace.BrickType);
                 }
 
                 var p = GetPoint();
