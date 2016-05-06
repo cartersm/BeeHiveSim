@@ -5,7 +5,6 @@ using Assets.Editor;
 
 public class UpdateCells : MonoBehaviour
 {
-     public GameObject hexagon;
 
      void Start () {
         //this.hexagon = Instantiate(Resources.Load("Hexagon")) as GameObject;
