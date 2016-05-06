@@ -1,0 +1,63 @@
+﻿[
+		{ 
+		"combo":{
+			"LocalConfiguration":{
+							"Config":[
+											[
+												[
+													"Cell":{"BrickType": 0, "IsOccupied":false},
+													"Cell":{"BrickType": 0, "IsOccupied":false},
+													"Cell":{"BrickType": 0, "IsOccupied":false}
+												],
+												[
+													"Cell":{"BrickType": 0, "IsOccupied":false}
+													"Cell":{"BrickType": 0, "IsOccupied":false},
+													"Cell":{"BrickType": 0, "IsOccupied":false},
+												],
+												[
+													"Cell":{"BrickType": 0, "IsOccupied":false},
+													"Cell":{"BrickType": 0, "IsOccupied":false},
+													"Cell":{"BrickType": 0, "IsOccupied":false}
+												]
+									]
+											],
+											[
+												[
+													"Cell":{"BrickType": 0, "IsOccupied":false},
+													"Cell":{"BrickType": 0, "IsOccupied":false},
+													"Cell":{"BrickType": 0, "IsOccupied":false}
+												],
+												[
+													"Cell":{"BrickType": 0, "IsOccupied":false},
+													"Cell":{"BrickType": 0, "IsOccupied":false},
+													"Cell":{"BrickType": 0, "IsOccupied":false}
+												],
+												[
+													"Cell":{"BrickType": 0, "IsOccupied":false},
+													"Cell":{"BrickType": 0, "IsOccupied":false},
+													"Cell":{"BrickType": 0, "IsOccupied":false}
+												]
+											],
+											[
+												[
+													"Cell":{"BrickType": 0, "IsOccupied":false},
+													"Cell":{"BrickType": 0, "IsOccupied":false},
+													"Cell":{"BrickType": 0, "IsOccupied":false}
+												],
+												[
+													"Cell":{"BrickType": 0, "IsOccupied":false},
+													"Cell":{"BrickType": 0, "IsOccupied":false},
+													"Cell":{"BrickType": 0, "IsOccupied":false}
+												],
+												[
+													"Cell":{"BrickType": 0, "IsOccupied":false},
+													"Cell":{"BrickType": 0, "IsOccupied":false},
+													"Cell":{"BrickType": 0, "IsOccupied":false}
+												]
+											],
+									]},
+				"prob": 1.0
+			}
+
+	}
+]
