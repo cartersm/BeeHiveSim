@@ -31,29 +31,25 @@ namespace Assets.Algorithm
         // x, y, z
         public Cell[,,] Cells { get; private set; }
 
-        public Cell[][] GetAdjacentCells(Point3D location)
+        public Cell[,] GetAdjacentCells(Point3D location)
         {
-            var cells = new Cell[3][];
+            var cells = new Cell[3, 7];
             for (var i = -1; i < 2; i++)
             {
                 int x = location.x, y = location.y, z = location.z + i;
 
-                var innerCells = new Cell[7];
-
                 var idx = i + 1;
-                innerCells[0] = _tryGetCell(x - 1, y + 1, z);
-                innerCells[1] = _tryGetCell(x, y + 1, z);
-                innerCells[2] = _tryGetCell(x + 1, y, z);
-                innerCells[3] = _tryGetCell(x + 1, y - 1, z);
-                innerCells[4] = _tryGetCell(x, y - 1, z);
-                innerCells[5] = _tryGetCell(x - 1, y, z);
+                cells[idx, 0] = _tryGetCell(x - 1, y + 1, z);
+                cells[idx, 1] = _tryGetCell(x, y + 1, z);
+                cells[idx, 2] = _tryGetCell(x + 1, y, z);
+                cells[idx, 3] = _tryGetCell(x + 1, y - 1, z);
+                cells[idx, 4] = _tryGetCell(x, y - 1, z);
+                cells[idx, 5] = _tryGetCell(x - 1, y, z);
 
-                innerCells[6] = 
+                cells[idx, 6] = 
                     i == 0 
                     ? null 
                     : _tryGetCell(x, y, z);
-
-                cells[idx] = innerCells;
             }
 
             return cells;

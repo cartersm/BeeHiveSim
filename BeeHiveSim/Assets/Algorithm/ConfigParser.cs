@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -14,38 +15,38 @@ namespace Assets.Algorithm
         {
             Dictionary<LocalConfiguration, BrickPlacement> dict = new Dictionary<LocalConfiguration, BrickPlacement>();
             var text = filename;
+            Cell[,] cells = new Cell[3,7];
             using (var streamReader = new StreamReader(text, Encoding.UTF8))
             {
-                text = streamReader.ReadToEnd();
+                string line;
+                while (streamReader.Peek() >= 0)
+                {
+                    line = streamReader.ReadLine();
+                    string[] fields = line.Split(' ');
+                    string[] top = fields[0].Split(',');
+                    string[] mid = fields[1].Split(',');
+                    string[] bot = fields[2].Split(',');
+                    BrickPlacement brick = new BrickPlacement(Int32.Parse(fields[3]), Double.Parse(fields[4]));
+                    for (int i = 0; i < 6; i++)
+                    {
+                        cells[0, i] = new Cell(Int32.Parse(bot[i]));
+                        cells[1, i] = new Cell(Int32.Parse(mid[i]));
+                        cells[2, i] = new Cell(Int32.Parse(bot[i]));
+                    }
+                    cells[0, 6] = new Cell(Int32.Parse(bot[6]));
+                    cells[0, 6] = null;
+                    cells[0, 6] = new Cell(Int32.Parse(top[6]));
+                    LocalConfiguration config = new LocalConfiguration(cells);
+                    dict.Add(config, brick);
+                }
             }
-            var obj = JObject.Parse(text);
 
-            var a = (JArray)obj["array"];
-            var combos = obj.ToObject<IList<Combo>>();
 
-            var cells = new Cell[3][];
-            foreach (var ce in combos)
-            {
-                cells[0] = ce.bot;
-                cells[1] = ce.mid;
-                cells[2] = ce.top;
-                LocalConfiguration configmap = new LocalConfiguration(cells);
-                BrickPlacement bric = new BrickPlacement(ce.BrickType,ce.Chance);
-                dict.Add(configmap,bric);
-
-            }
             return dict;
 
 
         }
 
-        public class Combo
-        {
-            public Cell[] top { get; set; }
-            public Cell[] mid { get; set; }
-            public Cell[] bot { get; set; }
-            public double Chance { get; set; }
-            public int BrickType { get; set; }
-        }
+       
     }
 }

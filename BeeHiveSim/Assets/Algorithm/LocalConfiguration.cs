@@ -2,9 +2,9 @@
 {
     public class LocalConfiguration
     {
-        public Cell[][] Config { get; set; }
+        public Cell[,] Config { get; set; }
 
-        public LocalConfiguration(Cell[][] config)
+        public LocalConfiguration(Cell[,] config)
         {
             this.Config = config;
         }
@@ -24,7 +24,19 @@
         // override object.GetHashCode
         public override int GetHashCode()
         {
-            return this.Config.GetHashCode();
+            var hash = 0;
+            for (var i = 0; i < 3; i++)
+            {
+                for (var j = 0; j < 7; j++)
+                {
+                    if (this.Config[i, j] != null)
+                    {
+                        
+                        hash += ((i*j)^(this.Config[i, j].BrickType +3) - i*j);
+                    }
+                }
+            }
+            return hash;
         }
     }
 }

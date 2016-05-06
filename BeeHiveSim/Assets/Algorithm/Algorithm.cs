@@ -7,7 +7,7 @@ using Random = System.Random;
 // Implements the BeeHive Construction Algorithm
 namespace Assets.Algorithm
 {
-    public class Algorithm
+    public class Algorithm : MonoBehaviour
     {
         private int _numBees;
         public int TMax;
@@ -31,43 +31,43 @@ namespace Assets.Algorithm
             // place one brick at a predefined site
             this.Grid.Cells[10, 10, 10].BrickType = 1;
             this.Grid.Cells[10, 10, 10].IsOccupied = true;
-            //            var lookupTable = ConfigParser.Parse(this._filename);
-            var lookupTable = new Dictionary<LocalConfiguration, BrickPlacement>();
-            Cell oneCell = new Cell(0, 0, 0);
-            oneCell.BrickType = 1;
-            lookupTable.Add(new LocalConfiguration(new Cell[3][]
-            {
-                new Cell[7]
-                {
-                    new Cell(0,0,0),
-                    new Cell(0,0,0),
-                    new Cell(0,0,0),
-                    new Cell(0,0,0),
-                    new Cell(0,0,0),
-                    new Cell(0,0,0),
-                    oneCell
-                },
-                new Cell[7]
-                {
-                    new Cell(0,0,0),
-                    new Cell(0,0,0),
-                    new Cell(0,0,0),
-                    new Cell(0,0,0),
-                    new Cell(0,0,0),
-                    new Cell(0,0,0),
-                    null
-                },
-                new Cell[7]
-                {
-                    new Cell(0,0,0),
-                    new Cell(0,0,0),
-                    new Cell(0,0,0),
-                    new Cell(0,0,0),
-                    new Cell(0,0,0),
-                    new Cell(0,0,0),
-                    new Cell(0,0,0)
-                }
-            }), new BrickPlacement(1, 1.0));
+                      var lookupTable = ConfigParser.Parse(this._filename);
+            //var lookupTable = new Dictionary<LocalConfiguration, BrickPlacement>();
+            //Cell oneCell = new Cell(0, 0, 0);
+            //oneCell.BrickType = 1;
+            //lookupTable.Add(new LocalConfiguration(new Cell[3][]
+            //{
+            //    new Cell[7]
+            //    {
+            //        new Cell(0,0,0),
+            //        new Cell(0,0,0),
+            //        new Cell(0,0,0),
+            //        new Cell(0,0,0),
+            //        new Cell(0,0,0),
+            //        new Cell(0,0,0),
+            //        oneCell
+            //    },
+            //    new Cell[7]
+            //    {
+            //        new Cell(0,0,0),
+            //        new Cell(0,0,0),
+            //        new Cell(0,0,0),
+            //        new Cell(0,0,0),
+            //        new Cell(0,0,0),
+            //        new Cell(0,0,0),
+            //        null
+            //    },
+            //    new Cell[7]
+            //    {
+            //        new Cell(0,0,0),
+            //        new Cell(0,0,0),
+            //        new Cell(0,0,0),
+            //        new Cell(0,0,0),
+            //        new Cell(0,0,0),
+            //        new Cell(0,0,0),
+            //        new Cell(0,0,0)
+            //    }
+            //}), new BrickPlacement(1, 1.0));
 
             for (var k = 0; k < this._numBees; k++)
             {

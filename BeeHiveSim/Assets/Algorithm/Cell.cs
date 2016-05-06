@@ -8,6 +8,10 @@ namespace Assets.Algorithm
         public int BrickType { get; set; }
         public Point3D Location;
 
+        public Cell(int brickType)
+        {
+            BrickType = brickType;
+        }
         public Cell(Point3D location)
         {
             this.IsOccupied = false;
