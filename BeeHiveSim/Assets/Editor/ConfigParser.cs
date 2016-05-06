@@ -1,47 +1,32 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using Newtonsoft.Json.Linq;
 
-
 namespace Assets.Editor
 {
-    public class ConfigParser
+    public static class ConfigParser
     {
-        
-
-        Dictionary<LocalConfiguration, BrickPlacement> runParse(String filename)
+        public static Dictionary<LocalConfiguration, BrickPlacement> Parse(string filename)
         {
-            Dictionary<LocalConfiguration, BrickPlacement> vals = new Dictionary<LocalConfiguration, BrickPlacement>();
-              string text = filename;
+            var text = filename;
             using (var streamReader = new StreamReader(text, Encoding.UTF8))
             {
                 text = streamReader.ReadToEnd();
             }
-            JObject obj = JObject.Parse(text);
+            var obj = JObject.Parse(text);
 
-            JArray a = (JArray) obj["array"];
-            IList<Combo> combos = obj.ToObject<IList<Combo>>();
-            foreach (Combo entry in combos)
-            {
-                vals.Add(entry.config, new BrickPlacement(entry.bricktype,entry.prob) );
-            }
-            return vals;
+            var a = (JArray)obj["array"];
+            var combos = obj.ToObject<IList<Combo>>();
+            return combos.ToDictionary(entry => entry.Config, entry => new BrickPlacement(entry.BrickType, entry.Chance));
         }
-        
+
         public class Combo
         {
-            public LocalConfiguration config { get; set; }
-            public double prob { get; set; }
-            public int bricktype { get; set; }
-
-
+            public LocalConfiguration Config { get; set; }
+            public double Chance { get; set; }
+            public int BrickType { get; set; }
         }
-
     }
-
-    
 }

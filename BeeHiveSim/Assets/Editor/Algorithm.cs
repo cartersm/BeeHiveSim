@@ -12,13 +12,15 @@ namespace Assets.Editor
         private List<Bee> _bees;
         public BeeHiveGrid Grid { get; set; }
         private Random _random;
+        private string _filename;
 
-        public Algorithm(int numBees, int tMax)
+        public Algorithm(int numBees, int tMax, string filename)
         {
             this._numBees = numBees;
             this._tMax = tMax;
             this._bees = new List<Bee>();
             this._random = new Random();
+            this._filename = filename;
         }
 
         public void Start()
@@ -26,13 +28,11 @@ namespace Assets.Editor
             // place one brick at a predefined site
             this.Grid.Cells[10, 10, 10].BrickType = 1;
             this.Grid.Cells[10, 10, 10].IsOccupied = true;
+            var lookupTable = ConfigParser.Parse(this._filename);
 
             for (var k = 1; k <= this._numBees; k++)
             {
-                // TODO: construct lookup table here
-                var lookupTable = new Dictionary<LocalConfiguration, BrickPlacement>();
-
-                var p = GetPoint();
+                var p = GetUnoccupiedPoint();
                 this.Grid.Cells[p.x, p.y, p.z].IsOccupied = true;
                 this._bees.Add(new Bee(k, new Point3D(p.x, p.y, p.z), lookupTable));
             }
@@ -44,7 +44,7 @@ namespace Assets.Editor
             }
         }
 
-        private Point3D GetPoint()
+        private Point3D GetUnoccupiedPoint()
         {
             int x, y, z;
             do
@@ -71,7 +71,7 @@ namespace Assets.Editor
                     this.Grid.DepositBrick(bee.Location, brickToPlace.BrickType);
                 }
 
-                var p = GetPoint();
+                var p = GetUnoccupiedPoint();
                 this.Grid.Cells[p.x, p.y, p.z].IsOccupied = true;
                 bee.Location = p;
             }
@@ -79,7 +79,7 @@ namespace Assets.Editor
 
         public void Main(string[] args)
         {
-            var a = new Algorithm(10, 20000);
+            var a = new Algorithm(10, 20000, "TextFile1.txt");
             a.Start();
         }
     }
