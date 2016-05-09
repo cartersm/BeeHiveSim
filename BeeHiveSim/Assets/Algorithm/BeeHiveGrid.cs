@@ -6,16 +6,16 @@ namespace Assets.Algorithm
 {
     public class BeeHiveGrid
     {
-        private int _x;
-        private int _y;
-        private int _z;
+        public int X;
+        public int Y;
+        public int Z;
 
         public BeeHiveGrid(int x = 20, int y = 20, int z = 20)
         {
             Cells = new Cell[20, 20, 20];
-            _x = x;
-            _y = y;
-            _z = z;
+            X = x;
+            Y = y;
+            Z = z;
             for (var i = 0; i < x; i++)
             {
                 for (var j = 0; j < y; j++)
