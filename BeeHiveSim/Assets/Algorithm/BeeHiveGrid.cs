@@ -9,6 +9,8 @@ namespace Assets.Algorithm
         public int X;
         public int Y;
         public int Z;
+        // x, y, z
+        public Cell[,,] Cells { get; private set; }
 
         public BeeHiveGrid(int x = 20, int y = 20, int z = 20)
         {
@@ -28,34 +30,31 @@ namespace Assets.Algorithm
             }
         }
 
-        // x, y, z
-        public Cell[,,] Cells { get; private set; }
-
-        public Cell[,] GetAdjacentCells(Point3D location)
+        public Cell[,] GetAdjacentCells(Point3D location, bool forLocalConfig=false)
         {
             var cells = new Cell[3, 7];
-            for (var i = -1; i < 2; i++)
+            for (var i = -1; i <= 1; i++)
             {
                 int x = location.X, y = location.Y, z = location.Z + i;
 
                 var idx = i + 1;
-                cells[idx, 0] = _tryGetCell(x - 1, y + 1, z);
-                cells[idx, 1] = _tryGetCell(x, y + 1, z);
-                cells[idx, 2] = _tryGetCell(x + 1, y, z);
-                cells[idx, 3] = _tryGetCell(x + 1, y - 1, z);
-                cells[idx, 4] = _tryGetCell(x, y - 1, z);
-                cells[idx, 5] = _tryGetCell(x - 1, y, z);
+                cells[idx, 0] = _tryGetCell(x - 1, y + 1, z, forLocalConfig);
+                cells[idx, 1] = _tryGetCell(x, y + 1, z, forLocalConfig);
+                cells[idx, 2] = _tryGetCell(x + 1, y, z, forLocalConfig);
+                cells[idx, 3] = _tryGetCell(x + 1, y - 1, z, forLocalConfig);
+                cells[idx, 4] = _tryGetCell(x, y - 1, z, forLocalConfig);
+                cells[idx, 5] = _tryGetCell(x - 1, y, z, forLocalConfig);
 
                 cells[idx, 6] = 
                     i == 0 
                     ? null 
-                    : _tryGetCell(x, y, z);
+                    : _tryGetCell(x, y, z, forLocalConfig);
             }
 
             return cells;
         }
 
-        private Cell _tryGetCell(int x, int y, int z)
+        private Cell _tryGetCell(int x, int y, int z, bool forLocalConfig=false)
         {
             try
             {
@@ -63,7 +62,8 @@ namespace Assets.Algorithm
             }
             catch (IndexOutOfRangeException)
             {
-                return null;
+                // no null cells on edges
+                return forLocalConfig ? new Cell(0) : null;
             }
         }
 
@@ -76,6 +76,11 @@ namespace Assets.Algorithm
         public void OccupyCell(Point3D location)
         {
             this.Cells[location.X, location.Y, location.Z].IsOccupied = true;
+        }
+
+        public void OccupyCell(int x, int y, int z)
+        {
+            this.Cells[x, y, z].IsOccupied = true;
         }
 
         public void UnOccupyCell(Point3D location)
@@ -91,6 +96,16 @@ namespace Assets.Algorithm
         public bool IsCellOccupied(int x, int y, int z)
         {
             return this.Cells[x, y, z].IsOccupied;
+        }
+
+        public void SetBrickType(int x, int y, int z, int brickType)
+        {
+            this.Cells[x, y, z].BrickType = brickType;
+        }
+
+        public void SetBrickType(Point3D p, int brickType)
+        {
+            this.Cells[p.X, p.Y, p.Z].BrickType = brickType;
         }
     }
 }
