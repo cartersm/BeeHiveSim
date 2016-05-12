@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Assets.Graphic;
 using Debug = UnityEngine.Debug;
 using Random = System.Random;
@@ -38,19 +37,19 @@ namespace Assets.Algorithm
         public void Start()
         {
             // place one brick at a predefined site
-            this.Grid.OccupyCell(10, 10, 10);
-            this.Grid.SetBrickType(10, 10, 10, 1);
+            this.Grid.OccupyCell(10, 10, 19);
+            this.Grid.SetBrickType(10, 10, 19, 1);
             var lookupTable = ConfigParser.Parse(this._filename);
 
             for (var k = 0; k < this._numBees; k++)
             {
                 var p = GetUnoccupiedPoint();
-                if (p.Z < 19)
-                {
-                    var p2 = new Point3D(p.X, p.Y, p.Z + 1);
-                    this.Grid.OccupyCell(p2);
-                    this.Grid.SetBrickType(p2, 1);
-                }
+                //if (p.Z < 19)
+                //{
+                //    var p2 = new Point3D(p.X, p.Y, p.Z + 1);
+                //    this.Grid.OccupyCell(p2);
+                //    this.Grid.SetBrickType(p2, 1);
+                //}
 
                 this.Grid.Cells[p.X, p.Y, p.Z].IsOccupied = true;
                 this._bees.Add(new Bee(k, new Point3D(p.X, p.Y, p.Z), lookupTable));
@@ -69,11 +68,14 @@ namespace Assets.Algorithm
                 var cells = this.Grid.GetAdjacentCells(bee.Location, true);
                 var config = new LocalConfiguration(cells);
                 var brickToPlace = bee.SenseEnvironment(config);
+                //if (config.Config[2, 6].BrickType != 0)
+                //{
+                //    Debug.Log("Found starting config");
+                //}
                 //Debug.Log(config);
                 if (brickToPlace != null)
                 {
-                    Debug.Log("Discovered Config: ");
-                    Debug.Log(brickToPlace);
+                    Debug.Log("Discovered Config: " + brickToPlace);
                     // Deposit brick specified by lookup table
                     this.Grid.DepositBrick(bee.Location, brickToPlace.BrickType);
                 }

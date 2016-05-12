@@ -21,12 +21,13 @@ namespace Assets.Algorithm
             }
 
             var other = (LocalConfiguration)obj;
-            return ConfigsEqual(this.Config, other.Config);
+            //return ConfigsEqual(this.Config, other.Config);
+            return this.ToString().Equals(other.ToString());
         }
 
+        // TODO: FIXME
         private static bool ConfigsEqual(Cell[,] config, Cell[,] config2)
         {
-            //return MultiDArrayToString(config).Equals(MultiDArrayToString(config2));
             if (config.Rank != config2.Rank || config.Length != config2.Rank) return false;
             for (var i = 0; i < 3; i++)
             {

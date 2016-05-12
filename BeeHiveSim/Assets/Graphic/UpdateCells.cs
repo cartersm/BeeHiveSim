@@ -1,23 +1,23 @@
 ﻿using System;
 using System.Collections;
-using Assets.Algorithm;
 using UnityEngine;
 
 namespace Assets.Graphic
 {
     public class UpdateCells : MonoBehaviour
     {
-        private int _nStepsTaken = 0;
+        private int _nStepsTaken;
         private Algorithm.Algorithm _algorithm;
         public int[,,] old = new int[20,20,20];
         public GameObject[,,] OldObjects = new GameObject[20,20,20];
+
         void Start () {
             Console.Write("-1\n");
             //this.hexagon = Instantiate(Resources.Load("Hexagon")) as GameObject;
             //oneThousandCells();
-            var nBees = 10;
-            var nSteps = 1000;
-            this._algorithm = new Algorithm.Algorithm(nBees, nSteps, "Assets/Editor/TextFile1.txt");
+            var nBees = 100;
+            var nSteps = 10000;
+            this._algorithm = new Algorithm.Algorithm(nBees, nSteps, "Assets/Editor/Architecture4d.txt");
             this._algorithm.Start();
         }
 
@@ -27,48 +27,45 @@ namespace Assets.Graphic
             //Console.Write("0\n");
             waithalfsec();
             //Console.Write("-0.5-\n");
-            if (this._nStepsTaken < this._algorithm.TMax)
+            if (this._nStepsTaken >= this._algorithm.TMax) return;
+            this._nStepsTaken++;
+            this._algorithm.Update();
+            for (var i = 0; i < 20; i++)
             {
-                this._nStepsTaken++;
-                this._algorithm.Update();
-                for (int i = 0; i < 20; i++)
+                for (var j = 0; j < 20; j++)
                 {
-                    for (int j = 0; j < 20; j++)
+                    for (var k = 0; k < 20; k++)
                     {
-                        for (int k = 0; k < 20; k++)
+                        var temp = this._algorithm.Grid.Cells[i,j,k];
+                        var preOcc = old[i, j, k];
+                        if (temp.IsOccupied && (preOcc == 0))
                         {
-                            Cell temp = this._algorithm.Grid.Cells[i,j,k];
-                            int pre_occ = old[i, j, k];
-                            if (temp.IsOccupied && (pre_occ == 0))
-                            {
-                                //Console.Write("1\n");
-                                UnityPoint3D tempUnity = getUnityPoint3D(i, j, k);
-                                GameObject tempCell =
-                                    Instantiate(Resources.Load("Hexagon"),
-                                        new Vector3(tempUnity.x, tempUnity.y, tempUnity.z), transform.rotation) as
-                                        GameObject;
+                            //Console.Write("1\n");
+                            var tempUnity = getUnityPoint3D(i, j, k);
+                            var tempCell =
+                                Instantiate(Resources.Load("Hexagon"),
+                                    new Vector3(tempUnity.x, tempUnity.y, tempUnity.z), transform.rotation) as
+                                    GameObject;
 
-                                tempCell.name = "Hexagon" + (i*100 + j*10 + k);
-                                OldObjects[i, j, k] = tempCell;
-                                old[i, j, k] = 1;
-                            }
-                            else if (!temp.IsOccupied && (pre_occ != 0))
-                            {
-                                //Console.Write("2\n");
-                                Destroy(OldObjects[i, j, k]);
-                                OldObjects[i, j, k] = null;
-                                old[i, j, k] = 0;
-                            }
-                            else
-                            {
-                                //Do nothing
-                            }
-
+                            tempCell.name = "Hexagon" + (i*10000 + j*100 + k);
+                            OldObjects[i, j, k] = tempCell;
+                            old[i, j, k] = 1;
                         }
+                        else if (!temp.IsOccupied && (preOcc != 0))
+                        {
+                            //Console.Write("2\n");
+                            Destroy(OldObjects[i, j, k]);
+                            OldObjects[i, j, k] = null;
+                            old[i, j, k] = 0;
+                        }
+                        else
+                        {
+                            //Do nothing
+                        }
+
                     }
                 }
             }
-            
         }
 
         IEnumerator waithalfsec()
