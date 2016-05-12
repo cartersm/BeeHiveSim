@@ -13,40 +13,43 @@ namespace Assets.Algorithm
     {
         public static Dictionary<LocalConfiguration, BrickPlacement> Parse(string filename)
         {
-            Dictionary<LocalConfiguration, BrickPlacement> dict = new Dictionary<LocalConfiguration, BrickPlacement>();
+            var dict = new Dictionary<LocalConfiguration, BrickPlacement>();
             var text = filename;
-            Cell[,] cells = new Cell[3,7];
             using (var streamReader = new StreamReader(text, Encoding.UTF8))
             {
-                string line;
                 while (streamReader.Peek() >= 0)
                 {
-                    line = streamReader.ReadLine();
-                    string[] fields = line.Split(' ');
-                    string[] top = fields[0].Split(',');
-                    string[] mid = fields[1].Split(',');
-                    string[] bot = fields[2].Split(',');
-                    BrickPlacement brick = new BrickPlacement(Int32.Parse(fields[3]), Double.Parse(fields[4]));
-                    for (int i = 0; i < 6; i++)
+                    var line = streamReader.ReadLine();
+                    if (line == null) continue;
+                    if (line.StartsWith("//")) continue;
+                    var fields = line.Split(' ');
+                    var top = fields[0].Split(',');
+                    var mid = fields[1].Split(',');
+                    var bot = fields[2].Split(',');
+                    var brick = new BrickPlacement(int.Parse(fields[3]), double.Parse(fields[4]));
+                    var cells = new Cell[3, 7];
+                    for (var i = 0; i < 6; i++)
                     {
-                        cells[0, i] = new Cell(Int32.Parse(bot[i]));
-                        cells[1, i] = new Cell(Int32.Parse(mid[i]));
-                        cells[2, i] = new Cell(Int32.Parse(bot[i]));
+                        cells[0, i] = new Cell(int.Parse(bot[i]));
+                        cells[1, i] = new Cell(int.Parse(mid[i]));
+                        cells[2, i] = new Cell(int.Parse(top[i]));
                     }
-                    cells[0, 6] = new Cell(Int32.Parse(bot[6]));
-                    cells[0, 6] = null;
-                    cells[0, 6] = new Cell(Int32.Parse(top[6]));
-                    LocalConfiguration config = new LocalConfiguration(cells);
-                    dict.Add(config, brick);
+                    cells[0, 6] = new Cell(int.Parse(bot[6]));
+                    cells[1, 6] = null;
+                    cells[2, 6] = new Cell(int.Parse(top[6]));
+
+                    var config = new LocalConfiguration(cells);
+                    try
+                    {
+                        dict.Add(config, brick);
+                    }
+                    catch (ArgumentException)
+                    {
+                        Debug.LogWarning("Found Duplicate Config");
+                    }
                 }
             }
-
-
             return dict;
-
-
         }
-
-       
     }
 }
