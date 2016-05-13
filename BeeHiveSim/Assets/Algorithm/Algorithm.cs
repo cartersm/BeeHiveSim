@@ -44,12 +44,6 @@ namespace Assets.Algorithm
             for (var k = 0; k < this._numBees; k++)
             {
                 var p = GetUnoccupiedPoint();
-                //if (p.Z < 19)
-                //{
-                //    var p2 = new Point3D(p.X, p.Y, p.Z + 1);
-                //    this.Grid.OccupyCell(p2);
-                //    this.Grid.SetBrickType(p2, 1);
-                //}
 
                 this.Grid.Cells[p.X, p.Y, p.Z].IsOccupied = true;
                 this._bees.Add(new Bee(k, new Point3D(p.X, p.Y, p.Z), lookupTable));
@@ -68,11 +62,6 @@ namespace Assets.Algorithm
                 var cells = this.Grid.GetAdjacentCells(bee.Location, true);
                 var config = new LocalConfiguration(cells);
                 var brickToPlace = bee.SenseEnvironment(config);
-                //if (config.Config[2, 6].BrickType != 0)
-                //{
-                //    Debug.Log("Found starting config");
-                //}
-                //Debug.Log(config);
                 if (brickToPlace != null)
                 {
                     Debug.Log("Discovered Config: " + brickToPlace);
@@ -87,7 +76,6 @@ namespace Assets.Algorithm
                 var p = GetUnoccupiedAdjacentPoint(bee.Location);
                 this.Grid.OccupyCell(p);
                 bee.Location = p;
-                //Debug.Log(bee.Location);
             }
         }
 
@@ -126,11 +114,5 @@ namespace Assets.Algorithm
             }
             return unoccupiedCells[_random.Next(unoccupiedCells.Count)].Location;
         }
-
-        //public void Main(string[] args)
-        //{
-        //    var a = new Algorithm(10, 100, "TextFile1.txt");
-        //    a.Start();
-        //}
     }
 }

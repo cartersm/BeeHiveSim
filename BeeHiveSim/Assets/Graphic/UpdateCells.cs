@@ -15,7 +15,7 @@ namespace Assets.Graphic
             Console.Write("-1\n");
             //this.hexagon = Instantiate(Resources.Load("Hexagon")) as GameObject;
             //oneThousandCells();
-            var nBees = 100;
+            var nBees = 10;
             var nSteps = 10000;
             this._algorithm = new Algorithm.Algorithm(nBees, nSteps, "Assets/Editor/Architecture4d.txt");
             this._algorithm.Start();
@@ -47,7 +47,7 @@ namespace Assets.Graphic
                                     new Vector3(tempUnity.x, tempUnity.y, tempUnity.z), transform.rotation) as
                                     GameObject;
 
-                            tempCell.name = "Hexagon" + (i*10000 + j*100 + k);
+                            tempCell.name = string.Format("Hexagon{0}{1}{2}", i.ToString("00"), j.ToString("00"), k.ToString("00"));
                             OldObjects[i, j, k] = tempCell;
                             old[i, j, k] = 1;
                         }
