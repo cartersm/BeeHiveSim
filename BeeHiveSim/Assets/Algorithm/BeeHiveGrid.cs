@@ -1,5 +1,5 @@
 ﻿using System;
-using Assets.Editor;
+using System.Collections.Generic;
 using Assets.Graphic;
 
 namespace Assets.Algorithm
@@ -30,7 +30,13 @@ namespace Assets.Algorithm
             }
         }
 
-        public Cell[,] GetAdjacentCells(Point3D location, bool forLocalConfig=false)
+        /// <summary>
+        /// Returns all cells that are directly or diagonally adjacent to the given point.
+        /// </summary>
+        /// <param name="location">The point to return adjacent cells for.</param>
+        /// <param name="forLocalConfig">Whether the cells are being retrieved for use with a LocalConfiguration.</param>
+        /// <returns>A Cell[,] containing the adjacent cells.</returns>
+        public Cell[,] GetAdjacentCells(Point3D location, bool forLocalConfig = false)
         {
             var cells = new Cell[3, 7];
             for (var i = -1; i <= 1; i++)
@@ -45,16 +51,38 @@ namespace Assets.Algorithm
                 cells[idx, 4] = _tryGetCell(x, y - 1, z, forLocalConfig);
                 cells[idx, 5] = _tryGetCell(x - 1, y, z, forLocalConfig);
 
-                cells[idx, 6] = 
-                    i == 0 
-                    ? null 
+                cells[idx, 6] =
+                    i == 0
+                    ? null
                     : _tryGetCell(x, y, z, forLocalConfig);
             }
 
             return cells;
         }
 
-        private Cell _tryGetCell(int x, int y, int z, bool forLocalConfig=false)
+        /// <summary>
+        /// Returns all cells that are directly adjacent to the given point.
+        /// </summary>
+        /// <param name="location">The point to find adjacent cells for.</param>
+        /// <returns>a List of Cells containing the adjacent cells.</returns>
+        public List<Cell> GetOneAdjacentCells(Point3D location)
+        {
+            var cells = new List<Cell>();
+            int x = location.X, y = location.Y, z = location.Z;
+
+            cells.Add(_tryGetCell(x - 1, y + 1, z));
+            cells.Add(_tryGetCell(x, y + 1, z));
+            cells.Add(_tryGetCell(x + 1, y, z));
+            cells.Add(_tryGetCell(x + 1, y - 1, z));
+            cells.Add(_tryGetCell(x, y - 1, z));
+            cells.Add(_tryGetCell(x - 1, y, z));
+            cells.Add(_tryGetCell(x, y, z + 1));
+            cells.Add(_tryGetCell(x, y, z - 1));
+
+            return cells;
+        }
+
+        private Cell _tryGetCell(int x, int y, int z, bool forLocalConfig = false)
         {
             try
             {

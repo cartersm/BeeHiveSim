@@ -100,10 +100,10 @@ namespace Assets.Algorithm
         /// Returns a Random unoccupied point adjacent to the given point.
         /// </summary>
         /// <param name="p">The point to start from</param>
-        /// <returns>A random point from the unoccupied cells directly or diagonally adjacent to the given point</returns>
+        /// <returns>A random point from the unoccupied cells adjacent to the given point</returns>
         private Point3D GetUnoccupiedAdjacentPoint(Point3D p)
         {
-            var adjacentCells = this.Grid.GetAdjacentCells(p);
+            var adjacentCells = this.Grid.GetOneAdjacentCells(p);
             var unoccupiedCells = new List<Cell>();
             foreach (var c in adjacentCells)
             {

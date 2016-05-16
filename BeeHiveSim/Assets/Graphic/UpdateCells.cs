@@ -19,6 +19,7 @@ namespace Assets.Graphic
             var nSteps = 10000;
             this._algorithm = new Algorithm.Algorithm(nBees, nSteps, "Assets/Editor/Architecture4d.txt");
             this._algorithm.Start();
+            Application.runInBackground = true;
         }
 
         // Update is called once per frame
