@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using UnityEditor;
+﻿using System.Collections;
 using UnityEngine;
 
 namespace Assets.Graphic
@@ -20,7 +18,7 @@ namespace Assets.Graphic
             //this.hexagon = Instantiate(Resources.Load("Hexagon")) as GameObject;
             //oneThousandCells();
             
-            var nBees = 50;
+            var nBees = 30;
             var nSteps = 10000;
             this._algorithm = new Algorithm.Algorithm(nBees, nSteps, "Assets/Editor/Architecture4d.txt");
             this._algorithm.Start();

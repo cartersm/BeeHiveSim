@@ -3,12 +3,12 @@ using System.Collections;
 
 public class CameraController : MonoBehaviour
 {
-    float speed = 2.5f;
+    float speed = 4.5f;
     public float minX = -360.0f;
     public float maxX = 360.0f;
 
-    public float minY = -75.0f;
-    public float maxY = 75.0f;
+    public float minY = -90.0f;
+    public float maxY = 90.0f;
 
     public float sensX = 500.0f;
     public float sensY = 500.0f;
@@ -48,7 +48,7 @@ public class CameraController : MonoBehaviour
         {
             transform.Translate(new Vector3(0, 0, speed * Time.deltaTime));
         }
-        if (Input.GetMouseButton(0))
+        if (true)
         {
             rotationX += Input.GetAxis("Mouse X") * sensX * Time.deltaTime;
             rotationY += Input.GetAxis("Mouse Y") * sensY * Time.deltaTime;
