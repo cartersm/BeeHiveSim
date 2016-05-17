@@ -7,8 +7,8 @@ public class CameraController : MonoBehaviour
     public float minX = -360.0f;
     public float maxX = 360.0f;
 
-    public float minY = -45.0f;
-    public float maxY = 45.0f;
+    public float minY = -75.0f;
+    public float maxY = 75.0f;
 
     public float sensX = 500.0f;
     public float sensY = 500.0f;

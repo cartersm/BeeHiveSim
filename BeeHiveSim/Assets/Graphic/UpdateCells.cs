@@ -11,9 +11,12 @@ namespace Assets.Graphic
         private Algorithm.Algorithm _algorithm;
         public int[,,] old = new int[20,20,20];
         public GameObject[,,] OldObjects = new GameObject[20,20,20];
+        public int rotationMaker = 0;
+        void Start ()
+        {
+            //preSetCells();
 
-        void Start () {
-            Console.Write("-1\n");
+            //Console.Write("-1\n");
             //this.hexagon = Instantiate(Resources.Load("Hexagon")) as GameObject;
             //oneThousandCells();
             
@@ -46,6 +49,16 @@ namespace Assets.Graphic
                         var preOcc = old[i, j, k];
                         if (temp.IsOccupied && temp.BrickType == 0)
                         {
+                            if (rotationMaker == 0 || rotationMaker == 2)
+                            {
+                                transform.Rotate(0, 180, 0);
+                                rotationMaker = 2;
+                            }
+                            if (rotationMaker == 1)
+                            {
+                                transform.Rotate(90, 0, 0);
+                                rotationMaker = 0;
+                            }
                             if (old[i, j, k] == 1)
                             {
                                 Destroy(OldObjects[i, j, k]);
@@ -54,10 +67,10 @@ namespace Assets.Graphic
                             }
                             var tempUnity = getUnityPoint3D(i, j, k);
                             var tempCell =
-                                Instantiate(Resources.Load("Bee"),
+                                Instantiate(Resources.Load("PrefabBee"),
                                     new Vector3(tempUnity.x, tempUnity.y, tempUnity.z), transform.rotation) as
                                     GameObject;
-                            tempCell.name = string.Format("Bee{0}{1}{2}", i.ToString("00"), j.ToString("00"), k.ToString("00"));
+                            tempCell.name = string.Format("PrefabBee{0}{1}{2}", i.ToString("00"), j.ToString("00"), k.ToString("00"));
                             OldObjects[i, j, k] = tempCell;
                             old[i, j, k] = 1;
        
@@ -68,9 +81,21 @@ namespace Assets.Graphic
                             Destroy(OldObjects[i, j, k]);
                             OldObjects[i, j, k] = null;
                             old[i, j, k] = 0;
+                            /*
+                            var tempUnity = getUnityPoint3D(i, j, k);
+                            GameObject tempCell = Instantiate(Resources.Load("Empty"), new Vector3(tempUnity.x, tempUnity.y, tempUnity.z), transform.rotation) as GameObject;
+                            tempCell.name = "Empty" + (i * 100 + j * 10 + k);
+                            OldObjects[i, j, k] = tempCell;
+                            old[i, j, k] = 1;
+                            */
                         }
                         else if (temp.IsOccupied && temp.BrickType != 0)
                         {
+                            if (rotationMaker == 0 || rotationMaker == 2)
+                            {
+                                transform.Rotate(-90, 0, 0);
+                                rotationMaker = 1;
+                            }
                             if (old[i, j, k] == 1)
                             {
                                 Destroy(OldObjects[i, j, k]);
@@ -78,13 +103,26 @@ namespace Assets.Graphic
                                 old[i, j, k] = 0;
                             }
                             var tempUnity = getUnityPoint3D(i, j, k);
-                            var tempCell =
-                                Instantiate(Resources.Load("Hexagon2"),
-                                    new Vector3(tempUnity.x, tempUnity.y, tempUnity.z), transform.rotation) as
-                                    GameObject;
-                            tempCell.name = string.Format("Hexagon2{0}{1}{2}", i.ToString("00"), j.ToString("00"),
-                                k.ToString("00"));
-                            OldObjects[i, j, k] = tempCell;
+                            if (temp.BrickType == 1)
+                            {
+                                var tempCell = Instantiate(Resources.Load("Hexagon2"),
+                                new Vector3(tempUnity.x, tempUnity.y, tempUnity.z), transform.rotation) as
+                                GameObject;
+                                tempCell.name = string.Format("Hexagon2{0}{1}{2}", i.ToString("00"), j.ToString("00"),
+                                    k.ToString("00"));
+                                OldObjects[i, j, k] = tempCell;
+                            }
+                            else
+                            {
+                                var tempCell = Instantiate(Resources.Load("Hexagon"),
+                                new Vector3(tempUnity.x, tempUnity.y, tempUnity.z), transform.rotation) as
+                                GameObject;
+                                tempCell.name = string.Format("Hexagon{0}{1}{2}", i.ToString("00"), j.ToString("00"),
+                                    k.ToString("00"));
+                                OldObjects[i, j, k] = tempCell;
+                            }
+
+
                             old[i, j, k] = 1;
    
                         }
@@ -94,6 +132,13 @@ namespace Assets.Graphic
                             Destroy(OldObjects[i, j, k]);
                             OldObjects[i, j, k] = null;
                             old[i, j, k] = 0;
+                            /*
+                            var tempUnity = getUnityPoint3D(i, j, k);
+                            GameObject tempCell = Instantiate(Resources.Load("Empty"), new Vector3(tempUnity.x, tempUnity.y, tempUnity.z), transform.rotation) as GameObject;
+                            tempCell.name = "Empty" + (i * 100 + j * 10 + k);
+                            OldObjects[i, j, k] = tempCell;
+                            old[i, j, k] = 1;
+                            */
                         }
 
                     }
@@ -123,6 +168,25 @@ namespace Assets.Graphic
             unityPoint3D.z = y + 0.5f * x;
             return unityPoint3D;
         }
+
+        void preSetCells()
+        {
+            for (int i = 0; i < 20; i++)
+            {
+                for (int j = 0; i < 20; i++)
+                {
+                    for (int k = 0; i < 20; i++)
+                    {
+                        UnityPoint3D temp = getUnityPoint3D(i, j, k);
+                        GameObject tempCell = Instantiate(Resources.Load("Empty"), new Vector3(temp.x, temp.y, temp.z), transform.rotation) as GameObject;
+                        tempCell.name = "Empty" + (i * 100 + j * 10 + k);
+                        OldObjects[i, j, k] = tempCell;
+                        old[i, j, k] = 1;
+                    }
+                }
+            }
+        }
+
 
         void oneThousandCells()
         {
