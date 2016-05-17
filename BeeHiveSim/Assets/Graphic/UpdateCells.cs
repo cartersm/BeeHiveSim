@@ -15,7 +15,8 @@ namespace Assets.Graphic
         void Start () {
             Console.Write("-1\n");
             //this.hexagon = Instantiate(Resources.Load("Hexagon")) as GameObject;
-            oneThousandCells();
+            //oneThousandCells();
+            
             var nBees = 50;
             var nSteps = 10000;
             this._algorithm = new Algorithm.Algorithm(nBees, nSteps, "Assets/Editor/Architecture4d.txt");
@@ -27,48 +28,77 @@ namespace Assets.Graphic
         // Update is called once per frame
         void Update ()
         {
-            ////Console.Write("0\n");
-            ////waithalfsec();
-            ////Console.Write("-0.5-\n");
-            //if (this._nStepsTaken >= this._algorithm.TMax) return;
-            //this._nStepsTaken++;
-            //this._algorithm.Update();
-            //for (var i = 0; i < 20; i++)
-            //{
-            //    for (var j = 0; j < 20; j++)
-            //    {
-            //        for (var k = 0; k < 20; k++)
-            //        {
-            //            var temp = this._algorithm.Grid.Cells[i,j,k];
-            //            var preOcc = old[i, j, k];
-            //            if (temp.IsOccupied && (preOcc == 0))
-            //            {
-            //                //Console.Write("1\n");
-            //                var tempUnity = getUnityPoint3D(i, j, k);
-            //                var tempCell =
-            //                    Instantiate(Resources.Load("Hexagon"),
-            //                        new Vector3(tempUnity.x, tempUnity.y, tempUnity.z), transform.rotation) as
-            //                        GameObject;
+            //Console.Write("0\n");
+            //waithalfsec();
+            //Console.Write("-0.5-\n");
+            if (this._nStepsTaken >= this._algorithm.TMax) return;
+            this._nStepsTaken++;
+            this._algorithm.Update();
+            
 
-            //                tempCell.name = string.Format("Hexagon{0}{1}{2}", i.ToString("00"), j.ToString("00"), k.ToString("00"));
-            //                OldObjects[i, j, k] = tempCell;
-            //                old[i, j, k] = 1;
-            //            }
-            //            else if (!temp.IsOccupied && (preOcc != 0))
-            //            {
-            //                //Console.Write("2\n");
-            //                Destroy(OldObjects[i, j, k]);
-            //                OldObjects[i, j, k] = null;
-            //                old[i, j, k] = 0;
-            //            }
-            //            else
-            //            {
-            //                //Do nothing
-            //            }
+            for (var i = 0; i < 20; i++)
+            {
+                for (var j = 0; j < 20; j++)
+                {
+                    for (var k = 0; k < 20; k++)
+                    {
+                        var temp = this._algorithm.Grid.Cells[i, j, k];
+                        var preOcc = old[i, j, k];
+                        if (temp.IsOccupied && temp.BrickType == 0)
+                        {
+                            if (old[i, j, k] == 1)
+                            {
+                                Destroy(OldObjects[i, j, k]);
+                                OldObjects[i, j, k] = null;
+                                old[i, j, k] = 0;
+                            }
+                            var tempUnity = getUnityPoint3D(i, j, k);
+                            var tempCell =
+                                Instantiate(Resources.Load("Bee"),
+                                    new Vector3(tempUnity.x, tempUnity.y, tempUnity.z), transform.rotation) as
+                                    GameObject;
+                            tempCell.name = string.Format("Bee{0}{1}{2}", i.ToString("00"), j.ToString("00"), k.ToString("00"));
+                            OldObjects[i, j, k] = tempCell;
+                            old[i, j, k] = 1;
+       
+                        }
+                        else if (!temp.IsOccupied)
+                        {
+                            //Console.Write("2\n");
+                            Destroy(OldObjects[i, j, k]);
+                            OldObjects[i, j, k] = null;
+                            old[i, j, k] = 0;
+                        }
+                        else if (temp.IsOccupied && temp.BrickType != 0)
+                        {
+                            if (old[i, j, k] == 1)
+                            {
+                                Destroy(OldObjects[i, j, k]);
+                                OldObjects[i, j, k] = null;
+                                old[i, j, k] = 0;
+                            }
+                            var tempUnity = getUnityPoint3D(i, j, k);
+                            var tempCell =
+                                Instantiate(Resources.Load("Hexagon2"),
+                                    new Vector3(tempUnity.x, tempUnity.y, tempUnity.z), transform.rotation) as
+                                    GameObject;
+                            tempCell.name = string.Format("Hexagon2{0}{1}{2}", i.ToString("00"), j.ToString("00"),
+                                k.ToString("00"));
+                            OldObjects[i, j, k] = tempCell;
+                            old[i, j, k] = 1;
+   
+                        }
+                        else
+                        {
+                            //Console.Write("2\n");
+                            Destroy(OldObjects[i, j, k]);
+                            OldObjects[i, j, k] = null;
+                            old[i, j, k] = 0;
+                        }
 
-            //        }
-            //    }
-            //}
+                    }
+                }
+            }
         }
 
         IEnumerator waithalfsec()
