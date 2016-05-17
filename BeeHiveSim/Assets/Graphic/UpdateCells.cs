@@ -49,16 +49,22 @@ namespace Assets.Graphic
                         var preOcc = old[i, j, k];
                         if (temp.IsOccupied && temp.BrickType == 0)
                         {
-                            if (rotationMaker == 0 || rotationMaker == 2)
+                            if (rotationMaker == 0) 
                             {
                                 transform.Rotate(0, 180, 0);
-                                rotationMaker = 2;
+                                rotationMaker = 1;
                             }
-                            if (rotationMaker == 1)
+                            else if (rotationMaker == 1) 
                             {
-                                transform.Rotate(90, 0, 0);
+                                transform.Rotate(0, 180, 0);
                                 rotationMaker = 0;
                             }
+                            else if (rotationMaker == 2)
+                            {
+                                transform.Rotate(-90, 0, 0);
+                                rotationMaker = 0;
+                            }
+
                             if (old[i, j, k] == 1)
                             {
                                 Destroy(OldObjects[i, j, k]);
@@ -91,11 +97,18 @@ namespace Assets.Graphic
                         }
                         else if (temp.IsOccupied && temp.BrickType != 0)
                         {
-                            if (rotationMaker == 0 || rotationMaker == 2)
+                            if (rotationMaker == 0)
                             {
-                                transform.Rotate(-90, 0, 0);
-                                rotationMaker = 1;
+                                transform.Rotate(90, 0, 0);
+                                rotationMaker = 2;
                             }
+                            else if (rotationMaker == 1)
+                            {
+                                transform.Rotate(90,180,0);
+                                rotationMaker = 2;
+                            }
+                           
+
                             if (old[i, j, k] == 1)
                             {
                                 Destroy(OldObjects[i, j, k]);
