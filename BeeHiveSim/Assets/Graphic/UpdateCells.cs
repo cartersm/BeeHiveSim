@@ -16,7 +16,7 @@ namespace Assets.Graphic
         public int init_type = 1;
         public int  nBees = 20;
         public int nSteps = 3000;
-        public String path = "Assets/Editor/Architecture4d.txt";
+        public String path = "Assets/Editor/Architecture4c.txt";
         private int _nStepsTaken;
         public static int _maxI = 20;
         public static int _maxJ = 20;
