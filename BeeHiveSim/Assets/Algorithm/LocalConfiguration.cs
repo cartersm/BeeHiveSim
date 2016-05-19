@@ -1,12 +1,19 @@
 ﻿using System.Text;
-using UnityEngine;
 
 namespace Assets.Algorithm
 {
+    /// <summary>
+    /// A LocalConfiguration. This is the set of directly or diagonally adjacent cells to a given bee.
+    /// Used to sense the immediate area and make a decision on whether to place a brick and what type to place.
+    /// </summary>
     public class LocalConfiguration
     {
         public Cell[,] Config { get; set; }
 
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="config">A 2D array of cells, aligned [below me, on the same level as me, above me]</param>
         public LocalConfiguration(Cell[,] config)
         {
             this.Config = config;
@@ -22,6 +29,7 @@ namespace Assets.Algorithm
 
             var other = (LocalConfiguration)obj;
             //return ConfigsEqual(this.Config, other.Config);
+            // TODO: this is just checking strings. It should do an elementwise check on the cells.
             return this.ToString().Equals(other.ToString());
         }
 
@@ -37,23 +45,6 @@ namespace Assets.Algorithm
                 }
             }
             return true;
-        }
-
-        private static string MultiDArrayToString(Cell[,] cells)
-        {
-            var sb = new StringBuilder();
-            for (var i = 0; i < 3; i++)
-            {
-                for (var j = 0; j < 7; j++)
-                {
-                    var c = cells[i, j];
-                    if (c == null) continue;
-                    sb.Append(c.BrickType);
-                    sb.Append(",");
-                }
-                sb.Append("\n");
-            }
-            return sb.ToString();
         }
 
         // override object.GetHashCode

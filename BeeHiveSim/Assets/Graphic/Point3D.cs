@@ -1,7 +1,4 @@
-﻿
-using System;
-
-namespace Assets.Graphic
+﻿namespace Assets.Graphic
 {
     public class Point3D
     {

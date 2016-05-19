@@ -1,72 +1,68 @@
 ﻿using System.Collections.Generic;
 using Assets.Graphic;
-using UnityEngine;
 using Debug = UnityEngine.Debug;
 using Random = System.Random;
 
-// Implements the BeeHive Construction Algorithm
 namespace Assets.Algorithm
 {
+    /// <summary>
+    /// Implements the Beehive Construction Algorithm.
+    /// </summary>
     public class Algorithm
     {
         private readonly int _numBees;
-        public int TMax;
-        public int maxI;
-        public int maxJ;
-        public int maxK;
+        public int MaxSteps;
+        public int MaxI;
+        public int MaxJ;
+        public int MaxK;
 
         private readonly List<Bee> _bees;
         public BeeHiveGrid Grid { get; set; }
         private readonly Random _random;
         private readonly string _filename;
-        
+
 
         /// <summary>
-        /// Constructor
+        /// Constructor.
         /// </summary>
-        /// <param name="numBees">The number of bees (agents) to use</param>
-        /// <param name="tMax">The maximum number of steps hte algorithm should take</param>
-        /// <param name="filename">The filename to load the Lookup Table from</param>
-
-        public Algorithm(int numBees, int tMax, string filename, int x, int y, int z)
-
+        /// <param name="numBees">The number of bees (agents) to use.</param>
+        /// <param name="maxSteps">The maximum number of steps the algorithm should take.</param>
+        /// <param name="filename">The filename to load the Lookup Table fro.m</param>
+        /// <param name="maxI">The size of the Grid's X-axis.</param>
+        /// <param name="maxJ">The size of the Grid's Y-axis.</param>
+        /// <param name="maxK">The size of the Grid's Z-axis.</param>
+        public Algorithm(int numBees, int maxSteps, string filename, int maxI, int maxJ, int maxK)
         {
             this._numBees = numBees;
-            this.TMax = tMax;
-            this.maxI = maxI;
-            this.maxJ = maxJ;
-            this.maxK = maxK;
+            this.MaxSteps = maxSteps;
+            this._filename = filename;
+            this.MaxI = maxI;
+            this.MaxJ = maxJ;
+            this.MaxK = maxK;
+
             this._bees = new List<Bee>();
             this._random = new Random();
-            this._filename = filename;
-
-            this.Grid = new BeeHiveGrid(x, y, z);
-
+            this.Grid = new BeeHiveGrid(maxI, maxJ, maxK);
         }
 
         /// <summary>
-        /// Initialize the starting cell and starting locations of the bees
+        /// Initialize the starting cell and starting locations of the bees.
         /// </summary>
         public void Start()
         {
-            // place one brick at a predefined site
-
-            //this.Grid.OccupyCell(10, 10, 19);
-            //this.Grid.SetBrickType(10, 10, 19, 1);
-
             var lookupTable = ConfigParser.Parse(this._filename);
 
             for (var k = 0; k < this._numBees; k++)
             {
                 var p = GetUnoccupiedPoint();
 
-                this.Grid.Cells[p.X, p.Y, p.Z].IsOccupied = true;
-                this._bees.Add(new Bee(k, new Point3D(p.X, p.Y, p.Z), lookupTable));
+                this.Grid.OccupyCell(p);
+                this._bees.Add(new Bee(p, lookupTable));
             }
         }
 
         /// <summary>
-        /// Run one iteration of the algorithm
+        /// Run one iteration of the algorithm.
         /// </summary>
         public void Update()
         {
@@ -97,7 +93,7 @@ namespace Assets.Algorithm
         /// <summary>
         /// Returns a random unoccupied point in the Grid.
         /// </summary>
-        /// <returns>The first unoccupied cell found</returns>
+        /// <returns>The first unoccupied cell found.</returns>
         private Point3D GetUnoccupiedPoint()
         {
             int x, y, z;
@@ -114,8 +110,8 @@ namespace Assets.Algorithm
         /// <summary>
         /// Returns a Random unoccupied point adjacent to the given point.
         /// </summary>
-        /// <param name="p">The point to start from</param>
-        /// <returns>A random point from the unoccupied cells adjacent to the given point</returns>
+        /// <param name="p">The point to start from.</param>
+        /// <returns>A random point from the unoccupied cells adjacent to the given point.</returns>
         private Point3D GetUnoccupiedAdjacentPoint(Point3D p)
         {
             var adjacentCells = this.Grid.GetOneAdjacentCells(p);

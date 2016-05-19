@@ -1,9 +1,7 @@
-﻿//cells[idx, 0] = _tryGetCell(x - 1, y + 1, z);
-//cells[idx, 1] = _tryGetCell(x, y + 1, z);
-//cells[idx, 2] = _tryGetCell(x + 1, y, z);
-//cells[idx, 3] = _tryGetCell(x + 1, y - 1, z);
-//cells[idx, 4] = _tryGetCell(x, y - 1, z);
-//cells[idx, 5] = _tryGetCell(x - 1, y, z);
+﻿// Currently this architecture will not generate a coherent structure, 
+// as it depends on changing the rulesets after a number of configs.
+// The idea for implementing that is to have a List of Dictionaries of LocalConfigurations,
+// And to change all bees to them at certain points in the algorithm.
 // Step 1
 0,0,0,0,0,0,1 0,0,0,0,0,0 0,0,0,0,0,0,0 2 1.0
 // Step 2

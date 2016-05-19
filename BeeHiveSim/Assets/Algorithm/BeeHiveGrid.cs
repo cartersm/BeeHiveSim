@@ -4,27 +4,36 @@ using Assets.Graphic;
 
 namespace Assets.Algorithm
 {
+    /// <summary>
+    /// The Grid upon which the beehive is constructed.
+    /// </summary>
     public class BeeHiveGrid
     {
-        public int X;
-        public int Y;
-        public int Z;
+        public readonly int X;
+        public readonly int Y;
+        public readonly int Z;
         // x, y, z
-        public Cell[,,] Cells { get; private set; }
+        private readonly Cell[,,] _cells;
 
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="x">The size of the Grid's X-axis.</param>
+        /// <param name="y">The size of the Grid's Y-axis.</param>
+        /// <param name="z">The size of the Grid's Z-axis.</param>
         public BeeHiveGrid(int x = 20, int y = 20, int z = 20)
         {
-            Cells = new Cell[x, y, z];
-            X = x;
-            Y = y;
-            Z = z;
+            this._cells = new Cell[x, y, z];
+            this.X = x;
+            this.Y = y;
+            this.Z = z;
             for (var i = 0; i < x; i++)
             {
                 for (var j = 0; j < y; j++)
                 {
                     for (var k = 0; k < z; k++)
                     {
-                        Cells[i, j, k] = new Cell(i, j, k);
+                        this._cells[i, j, k] = new Cell(i, j, k);
                     }
                 }
             }
@@ -82,11 +91,19 @@ namespace Assets.Algorithm
             return cells;
         }
 
+        /// <summary>
+        /// Tries to get a Cell from the internal array.
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="z"></param>
+        /// <param name="forLocalConfig"></param>
+        /// <returns></returns>
         private Cell _tryGetCell(int x, int y, int z, bool forLocalConfig = false)
         {
             try
             {
-                return Cells[x, y, z];
+                return this._cells[x, y, z];
             }
             catch (IndexOutOfRangeException)
             {
@@ -95,25 +112,30 @@ namespace Assets.Algorithm
             }
         }
 
+        /// <summary>
+        /// Occupies the cell at the given location and sets its brick type to the given brick type.
+        /// </summary>
+        /// <param name="location">The location of the cell to modify.</param>
+        /// <param name="brickToPlace">The brick type to place.</param>
         public void DepositBrick(Point3D location, int brickToPlace)
         {
-            Cells[location.X, location.Y, location.Z].BrickType = brickToPlace;
+            _cells[location.X, location.Y, location.Z].BrickType = brickToPlace;
             this.OccupyCell(location);
         }
 
         public void OccupyCell(Point3D location)
         {
-            this.Cells[location.X, location.Y, location.Z].IsOccupied = true;
+            this.OccupyCell(location.X, location.Y, location.Z);
         }
 
         public void OccupyCell(int x, int y, int z)
         {
-            this.Cells[x, y, z].IsOccupied = true;
+            this._cells[x, y, z].IsOccupied = true;
         }
 
         public void UnOccupyCell(Point3D location)
         {
-            this.Cells[location.X, location.Y, location.Z].IsOccupied = false;
+            this._cells[location.X, location.Y, location.Z].IsOccupied = false;
         }
 
         public bool IsCellOccupied(Point3D location)
@@ -123,17 +145,22 @@ namespace Assets.Algorithm
 
         public bool IsCellOccupied(int x, int y, int z)
         {
-            return this.Cells[x, y, z].IsOccupied;
+            return this._cells[x, y, z].IsOccupied;
         }
 
         public void SetBrickType(int x, int y, int z, int brickType)
         {
-            this.Cells[x, y, z].BrickType = brickType;
+            this._cells[x, y, z].BrickType = brickType;
         }
 
         public void SetBrickType(Point3D p, int brickType)
         {
-            this.Cells[p.X, p.Y, p.Z].BrickType = brickType;
+            this._cells[p.X, p.Y, p.Z].BrickType = brickType;
+        }
+
+        public Cell GetCell(int x, int y, int z)
+        {
+            return this._cells[x, y, z];
         }
     }
 }
