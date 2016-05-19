@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
 
@@ -15,6 +16,7 @@ namespace Assets.Graphic
         public int init_type = 1;
         public int  nBees = 20;
         public int nSteps = 3000;
+        public String path = "Assets/Editor/Architecture4d.txt";
         private int _nStepsTaken;
         private Algorithm.Algorithm _algorithm;
 
@@ -34,7 +36,7 @@ namespace Assets.Graphic
             //oneThousandCells();
 
 
-            this._algorithm = new Algorithm.Algorithm(nBees, nSteps, "Assets/Editor/Architecture4d.txt",x , y, z);
+            this._algorithm = new Algorithm.Algorithm(nBees, nSteps, path ,x , y, z);
             this._algorithm.Grid.OccupyCell(init_x, init_y, init_z);
             this._algorithm.Grid.SetBrickType(init_x, init_y, init_z, init_type);
             this._algorithm.Start();
