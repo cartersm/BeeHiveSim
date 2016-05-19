@@ -14,7 +14,7 @@ namespace Assets.Algorithm
 
         public BeeHiveGrid(int x = 20, int y = 20, int z = 20)
         {
-            Cells = new Cell[20, 20, 20];
+            Cells = new Cell[x, y, z];
             X = x;
             Y = y;
             Z = z;

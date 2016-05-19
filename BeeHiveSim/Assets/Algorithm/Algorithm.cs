@@ -14,6 +14,7 @@ namespace Assets.Algorithm
         public BeeHiveGrid Grid { get; set; }
         private readonly Random _random;
         private readonly string _filename;
+        
 
         /// <summary>
         /// Constructor
@@ -21,14 +22,14 @@ namespace Assets.Algorithm
         /// <param name="numBees">The number of bees (agents) to use</param>
         /// <param name="tMax">The maximum number of steps hte algorithm should take</param>
         /// <param name="filename">The filename to load the Lookup Table from</param>
-        public Algorithm(int numBees, int tMax, string filename)
+        public Algorithm(int numBees, int tMax, string filename, int x, int y, int z)
         {
             this._numBees = numBees;
             this.TMax = tMax;
             this._bees = new List<Bee>();
             this._random = new Random();
             this._filename = filename;
-            this.Grid = new BeeHiveGrid();
+            this.Grid = new BeeHiveGrid(x, y, z);
         }
 
         /// <summary>
@@ -37,8 +38,8 @@ namespace Assets.Algorithm
         public void Start()
         {
             // place one brick at a predefined site
-            this.Grid.OccupyCell(10, 10, 19);
-            this.Grid.SetBrickType(10, 10, 19, 1);
+            //this.Grid.OccupyCell(10, 10, 19);
+            //this.Grid.SetBrickType(10, 10, 19, 1);
             var lookupTable = ConfigParser.Parse(this._filename);
 
             for (var k = 0; k < this._numBees; k++)

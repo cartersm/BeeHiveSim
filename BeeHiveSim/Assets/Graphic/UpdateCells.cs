@@ -6,20 +6,26 @@ namespace Assets.Graphic
 {
     public class UpdateCells : MonoBehaviour
     {
-        public int x = 20;
-        public int y = 20;
-        public int z = 20;
-        public int  nBees = 50;
-        public int nSteps = 10000;
+        public int x = 0;
+        public int y = 0;
+        public int z = 0;
+        public int init_x = 0;
+        public int init_y = 0;
+        public int init_z = 0;
+        public int init_type = 1;
+        public int  nBees = 20;
+        public int nSteps = 3000;
         private int _nStepsTaken;
         private Algorithm.Algorithm _algorithm;
 
-        public int[,,] old = new int[20,20,20];
-        public GameObject[,,] OldObjects = new GameObject[20,20,20];
+        public int[,,] old;
+        public GameObject[,,] OldObjects;
 
         int rotationMaker = 0;
         void Start ()
         {
+
+
             //preSetCells();
             old = new int[x, y, z];
             OldObjects = new GameObject[x, y, z];
@@ -28,7 +34,9 @@ namespace Assets.Graphic
             //oneThousandCells();
 
 
-            this._algorithm = new Algorithm.Algorithm(nBees, nSteps, "Assets/Editor/Architecture4d.txt");
+            this._algorithm = new Algorithm.Algorithm(nBees, nSteps, "Assets/Editor/Architecture4d.txt",x , y, z);
+            this._algorithm.Grid.OccupyCell(init_x, init_y, init_z);
+            this._algorithm.Grid.SetBrickType(init_x, init_y, init_z, init_type);
             this._algorithm.Start();
             Application.runInBackground = true;
 
@@ -45,11 +53,11 @@ namespace Assets.Graphic
             this._algorithm.Update();
             
 
-            for (var i = 0; i < 20; i++)
+            for (var i = 0; i < x; i++)
             {
-                for (var j = 0; j < 20; j++)
+                for (var j = 0; j < y; j++)
                 {
-                    for (var k = 0; k < 20; k++)
+                    for (var k = 0; k < z; k++)
                     {
                         var temp = this._algorithm.Grid.Cells[i, j, k];
                         var preOcc = old[i, j, k];
@@ -190,11 +198,11 @@ namespace Assets.Graphic
 
         void preSetCells()
         {
-            for (int i = 0; i < 20; i++)
+            for (int i = 0; i < x; i++)
             {
-                for (int j = 0; i < 20; i++)
+                for (int j = 0; i < y; i++)
                 {
-                    for (int k = 0; i < 20; i++)
+                    for (int k = 0; i < z; i++)
                     {
                         UnityPoint3D temp = getUnityPoint3D(i, j, k);
                         GameObject tempCell = Instantiate(Resources.Load("Empty"), new Vector3(temp.x, temp.y, temp.z), transform.rotation) as GameObject;
