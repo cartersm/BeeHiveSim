@@ -1,25 +1,33 @@
 ﻿using System.Collections;
 using UnityEngine;
 
+
 namespace Assets.Graphic
 {
     public class UpdateCells : MonoBehaviour
     {
+        public int x = 20;
+        public int y = 20;
+        public int z = 20;
+        public int  nBees = 50;
+        public int nSteps = 10000;
         private int _nStepsTaken;
         private Algorithm.Algorithm _algorithm;
+
         public int[,,] old = new int[20,20,20];
         public GameObject[,,] OldObjects = new GameObject[20,20,20];
-        public int rotationMaker = 0;
+
+        int rotationMaker = 0;
         void Start ()
         {
             //preSetCells();
-
+            old = new int[x, y, z];
+            OldObjects = new GameObject[x, y, z];
             //Console.Write("-1\n");
             //this.hexagon = Instantiate(Resources.Load("Hexagon")) as GameObject;
             //oneThousandCells();
-            
-            var nBees = 30;
-            var nSteps = 10000;
+
+
             this._algorithm = new Algorithm.Algorithm(nBees, nSteps, "Assets/Editor/Architecture4d.txt");
             this._algorithm.Start();
             Application.runInBackground = true;
