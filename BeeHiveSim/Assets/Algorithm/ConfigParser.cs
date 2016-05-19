@@ -30,6 +30,7 @@ namespace Assets.Algorithm
                     for (var j = 0; j < 6; j++)
                     {
                         var cells = new Cell[3, 7];
+
                         for (var i = 0; i < 6; i++)
                         {
                             var idx = (i + j) % 6;
@@ -40,6 +41,31 @@ namespace Assets.Algorithm
                         cells[0, 6] = new Cell(int.Parse(bot[6]));
                         cells[1, 6] = null;
                         cells[2, 6] = new Cell(int.Parse(top[6]));
+
+                        var config = new LocalConfiguration(cells);
+                        try
+                        {
+                            dict.Add(config, brick);
+                        }
+                        catch (ArgumentException)
+                        {
+                            Debug.LogWarning("Found Duplicate Config");
+                        }
+                    }
+                    for (var j = 0; j < 6; j++)
+                    {
+                        var cells = new Cell[3, 7];
+
+                        for (var i = 0; i < 6; i++)
+                        {
+                            var idx = (i + j) % 6;
+                            cells[2, i] = new Cell(int.Parse(bot[idx]));
+                            cells[1, i] = new Cell(int.Parse(mid[idx]));
+                            cells[0, i] = new Cell(int.Parse(top[idx]));
+                        }
+                        cells[2, 6] = new Cell(int.Parse(bot[6]));
+                        cells[1, 6] = null;
+                        cells[0, 6] = new Cell(int.Parse(top[6]));
 
                         var config = new LocalConfiguration(cells);
                         try

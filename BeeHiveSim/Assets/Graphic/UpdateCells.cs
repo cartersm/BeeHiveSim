@@ -18,7 +18,11 @@ namespace Assets.Graphic
         public int nSteps = 3000;
         public String path = "Assets/Editor/Architecture4d.txt";
         private int _nStepsTaken;
+        public static int _maxI = 20;
+        public static int _maxJ = 20;
+        public static int _maxK = 20;
         private Algorithm.Algorithm _algorithm;
+
 
         public int[,,] old;
         public GameObject[,,] OldObjects;
@@ -36,9 +40,11 @@ namespace Assets.Graphic
             //oneThousandCells();
 
 
+
             this._algorithm = new Algorithm.Algorithm(nBees, nSteps, path ,x , y, z);
             this._algorithm.Grid.OccupyCell(init_x, init_y, init_z);
             this._algorithm.Grid.SetBrickType(init_x, init_y, init_z, init_type);
+
             this._algorithm.Start();
             Application.runInBackground = true;
 
@@ -53,13 +59,14 @@ namespace Assets.Graphic
             if (this._nStepsTaken >= this._algorithm.TMax) return;
             this._nStepsTaken++;
             this._algorithm.Update();
-            
+
 
             for (var i = 0; i < x; i++)
             {
                 for (var j = 0; j < y; j++)
                 {
                     for (var k = 0; k < z; k++)
+
                     {
                         var temp = this._algorithm.Grid.Cells[i, j, k];
                         var preOcc = old[i, j, k];

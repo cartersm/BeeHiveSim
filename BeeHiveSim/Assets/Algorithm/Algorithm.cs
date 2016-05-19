@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Assets.Graphic;
+using UnityEngine;
 using Debug = UnityEngine.Debug;
 using Random = System.Random;
 
@@ -10,6 +11,10 @@ namespace Assets.Algorithm
     {
         private readonly int _numBees;
         public int TMax;
+        public int maxI;
+        public int maxJ;
+        public int maxK;
+
         private readonly List<Bee> _bees;
         public BeeHiveGrid Grid { get; set; }
         private readonly Random _random;
@@ -22,14 +27,28 @@ namespace Assets.Algorithm
         /// <param name="numBees">The number of bees (agents) to use</param>
         /// <param name="tMax">The maximum number of steps hte algorithm should take</param>
         /// <param name="filename">The filename to load the Lookup Table from</param>
+<<<<<<< Updated upstream
         public Algorithm(int numBees, int tMax, string filename, int x, int y, int z)
+=======
+        /// <param name="maxI">The max I value of the array</param>
+        /// <param name="maxJ">The max I value of the array</param>
+        /// <param name="maxK">The max I value of the array</param>
+        public Algorithm(int numBees, int tMax, string filename, int maxI, int maxJ, int maxK)
+>>>>>>> Stashed changes
         {
             this._numBees = numBees;
             this.TMax = tMax;
+            this.maxI = maxI;
+            this.maxJ = maxJ;
+            this.maxK = maxK;
             this._bees = new List<Bee>();
             this._random = new Random();
             this._filename = filename;
+<<<<<<< Updated upstream
             this.Grid = new BeeHiveGrid(x, y, z);
+=======
+            this.Grid = new BeeHiveGrid(maxI,maxJ,maxK);
+>>>>>>> Stashed changes
         }
 
         /// <summary>
@@ -38,8 +57,13 @@ namespace Assets.Algorithm
         public void Start()
         {
             // place one brick at a predefined site
+<<<<<<< Updated upstream
             //this.Grid.OccupyCell(10, 10, 19);
             //this.Grid.SetBrickType(10, 10, 19, 1);
+=======
+            this.Grid.OccupyCell(maxI/2, maxJ/2, maxK/2);
+            this.Grid.SetBrickType(maxI/2, maxJ/2, maxK/2, 1);
+>>>>>>> Stashed changes
             var lookupTable = ConfigParser.Parse(this._filename);
 
             for (var k = 0; k < this._numBees; k++)
